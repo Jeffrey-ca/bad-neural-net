@@ -1,10 +1,10 @@
 import pickle
-import numpy as np
-import math
 import random
-import pandas as pd
 
-PI_w1 = open('w1.pickle', 'rb')
+import numpy as np
+
+# when the quotes are removed this opens the saved weights and biases
+'''PI_w1 = open('w1.pickle', 'rb')
 w1 = pickle.load(PI_w1)
 PI_b1 = open('b1.pickle', 'rb')
 b1 = pickle.load(PI_b1)
@@ -15,13 +15,15 @@ b2 = pickle.load(PI_b2)
 PI_w3 = open('w3.pickle', 'rb')
 w3 = pickle.load(PI_w3)
 PI_b3 = open('b3.pickle', 'rb')
-b3 = pickle.load(PI_b3)
+b3 = pickle.load(PI_b3)'''
 
 # X is input
 
 X = [69, .42, .23, .1, .83, .53, .79, .23, .98, .77]
 
-'''w1 = [[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+# quote from here to the end of line 58 to allow saved weights and biases to be opened and used
+
+w1 = [[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
       [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
       [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
       [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
@@ -52,9 +54,10 @@ w3 = [[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
       [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
       [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]]
 
-b3 = [0, 0, 0, 0]'''
+b3 = [0, 0, 0, 0]
 
 
+# This calculates the output and loss. The target loss is located here
 def nn(data):
     o1 = np.add(np.dot(data, w1), b1)
     o2 = np.add(np.dot(o1, w2), b2)
@@ -65,9 +68,10 @@ def nn(data):
     loss = 0
     for p in range(len(loss_2x)):
         loss = loss + loss_2x[p]
-    return loss/10
+    return loss / 10
 
 
+# this calculates the output
 def output(data1):
     o1 = np.add(np.dot(data1, w1), b1)
     o2 = np.add(np.dot(o1, w2), b2)
@@ -76,7 +80,7 @@ def output(data1):
 
 
 total_loss = 0
-# trains everything
+# Train weights and biases
 for z in range(1, 100, 1):
     for a in range(1, 5, 1):
         print(nn(X))
