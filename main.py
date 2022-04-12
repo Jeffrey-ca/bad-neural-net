@@ -41,7 +41,7 @@ def nn(data):
     o2 = np.add(np.dot(w2, o1), b2)
     activation(o2, .3)
     o3 = np.add(np.dot(w3, o2), b3)
-    target_output = [.69, .420]
+    target_output = [1, .1]
     loss_array = np.subtract(o3, target_output)
     loss_2x = np.square(loss_array)
     loss = 0
@@ -62,7 +62,7 @@ def output(data1):
 total_loss = 0
 # trains everything
 for z in range(1, 3, 1):
-    for a in range(1, 3, 1):
+    for a in range(1, 2, 1):
         print(nn(X))
         print(output(X))
         total_loss = total_loss + (nn(X))
