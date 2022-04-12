@@ -1,8 +1,6 @@
 import pickle
-import numpy as np
-import math
 import random
-import pandas as pd
+import numpy as np
 
 '''PI_w1 = open('w1.pickle', 'rb')
 w1 = pickle.load(PI_w1)
@@ -433,6 +431,7 @@ b3 = [1.0, 1.0]
 # TODO make variable target outout
 
 
+# This calculates the output and loss. The target loss is located here
 def nn(data):
     o1 = np.add(np.dot(w1, data), b1)
     o2 = np.add(np.dot(w2, o1), b2)
@@ -443,9 +442,10 @@ def nn(data):
     loss = 0
     for p in range(len(loss_2x)):
         loss = loss + loss_2x[p]
-    return loss/10
+    return loss / 10
 
 
+# this calculates the output
 def output(data1):
     o1 = np.add(np.dot(w1, data1), b1)
     o2 = np.add(np.dot(w2, o1), b2)
@@ -455,8 +455,8 @@ def output(data1):
 
 total_loss = 0
 # trains everything
-for z in range(1, 5, 1):
-    for a in range(1, 5, 1):
+for z in range(1, 2, 1):
+    for a in range(1, 2, 1):
         print(nn(X))
         print(output(X))
         total_loss = total_loss + (nn(X))
@@ -530,12 +530,6 @@ for z in range(1, 5, 1):
                 pickle.dump(b3, PO_b3)
                 PO_b3.close()
 
-print('W1:', w1)
-print('B1:', b1)
-print('W2:', w2)
-print('B2:', b2)
-print('W2:', w3)
-print('B3:', b3)
 print(nn(X))
 print('Total Loss:', total_loss)
 print(output(X))
