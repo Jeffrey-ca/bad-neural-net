@@ -24,6 +24,14 @@ X = [.69, .42, .23, .1, .83, .53, .79, .23, .98, .77, .69, .42, .23, .1, .83, .5
 
 # TODO make variable target outout
 
+# activation
+
+def activation(output, num):
+    for n in range(0, 100):
+        if output[n] > num:
+            output[n] = 1
+        else:
+            output[n] = 0
 
 # This calculates the output and loss. The target loss is located here
 
@@ -31,6 +39,7 @@ X = [.69, .42, .23, .1, .83, .53, .79, .23, .98, .77, .69, .42, .23, .1, .83, .5
 def nn(data):
     o1 = np.add(np.dot(w1, data), b1)
     o2 = np.add(np.dot(w2, o1), b2)
+    activation(o2, .3)
     o3 = np.add(np.dot(w3, o2), b3)
     target_output = [.69, .420]
     loss_array = np.subtract(o3, target_output)
@@ -38,20 +47,21 @@ def nn(data):
     loss = 0
     for p in range(len(loss_2x)):
         loss = loss + loss_2x[p]
-    return loss / 10
+    return loss
 
 
 # this calculates the output
 def output(data1):
     o1 = np.add(np.dot(w1, data1), b1)
     o2 = np.add(np.dot(w2, o1), b2)
+    activation(o2, .3)
     o3 = np.add(np.dot(w3, o2), b3)
     return o3
 
 
 total_loss = 0
 # trains everything
-for z in range(1, 5, 1):
+for z in range(1, 3, 1):
     for a in range(1, 3, 1):
         print(nn(X))
         print(output(X))
