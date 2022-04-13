@@ -9,4 +9,5 @@ train(100, X)
 end = timer()
 print(output(X))
 print(nn(X))
-print(end-start, 'seconds')
+print((end-start), 'seconds')
+

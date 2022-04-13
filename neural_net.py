@@ -7,7 +7,7 @@ from timeit import default_timer as timer
 
 # Change later to be input
 
-PI_w1 = open('w1.pickle', 'rb')
+'''PI_w1 = open('w1.pickle', 'rb')
 w1 = pickle.load(PI_w1)
 PI_b1 = open('b1.pickle', 'rb')
 b1 = pickle.load(PI_b1)
@@ -18,15 +18,15 @@ b2 = pickle.load(PI_b2)
 PI_w3 = open('w3.pickle', 'rb')
 w3 = pickle.load(PI_w3)
 PI_b3 = open('b3.pickle', 'rb')
-b3 = pickle.load(PI_b3)
+b3 = pickle.load(PI_b3)'''
 
 
-'''w1 = np.zeros(shape=(25, 25))
+w1 = np.zeros(shape=(25, 25))
 b1 = np.zeros(shape=(25))
 w2 = np.zeros(shape=(25, 25))
 b2 = np.zeros(shape=(25))
 w3 = np.zeros(shape=(25, 2))
-b3 = np.zeros(shape=(2))'''
+b3 = np.zeros(shape=(2))
 
 
 @jit(nopython=True, cache=True, fastmath=True)
