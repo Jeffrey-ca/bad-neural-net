@@ -6,9 +6,6 @@ from timeit import default_timer as timer
 
 
 # Change later to be input
-rand_nums = np.random.uniform(-1.0, 1, 25)
-X = np.array(rand_nums)
-
 
 PI_w1 = open('w1.pickle', 'rb')
 w1 = pickle.load(PI_w1)
@@ -64,7 +61,7 @@ def output(data1):
     return o3
 
 
-def train(num1):
+def train(num1, X):
     for z in range(0, num1, 1):
         for a in range(1, 2, 1):
             for c in range(0, 25):
@@ -131,11 +128,3 @@ def train(num1):
             PO_b3 = open("b3.pickle", "wb")
             pickle.dump(b3, PO_b3)
             PO_b3.close()
-
-
-start = timer()
-train(10000)
-end = timer()
-print(end-start)
-print(nn(X))
-print(output(X))
