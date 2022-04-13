@@ -62,8 +62,9 @@ def output(data1):
 # trains everything
 def train(num1, num2):
     total_loss = 0
-    for z in range(1, num1, 1):
-        for a in range(1, num2, 1):
+    for z in range(0, num1, 1):
+        for a in range(0, num2, 1):
+            print((z * 5) + a)
             total_loss = total_loss + (nn(X))
             for c in range(0, 100):
                 for b in range(0, 100):
