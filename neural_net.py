@@ -43,7 +43,7 @@ def nn(data):
     activation(o1, .5)
     o2 = np.add(np.dot(w2, o1), b2)
     o3 = np.add(np.dot(o2, w3), b3)
-    target_output = [1, .1]
+    target_output = [.5, .69]
     loss_array = np.subtract(o3, target_output)
     loss_2x = np.square(loss_array)
     loss = 0
@@ -72,9 +72,6 @@ def train(num1, X):
                     loss_test_w1 = nn(X)
                     if abs(hold_loss_w1) < abs(loss_test_w1):
                         w1[c][b] = hold_w1
-            PO_w1 = open("w1.pickle", "wb")
-            pickle.dump(w1, PO_w1)
-            PO_w1.close()
             for d in range(0, 25):
                 hold_loss_b1 = nn(X)
                 hold_b1 = b1[d]
@@ -82,10 +79,6 @@ def train(num1, X):
                 loss_test_b1 = nn(X)
                 if abs(hold_loss_b1) < abs(loss_test_b1):
                     b1[d] = hold_b1
-                elif abs(loss_test_b1) < abs(hold_loss_b1):
-                    PO_b1 = open("b1.pickle", "wb")
-                    pickle.dump(b1, PO_b1)
-                    PO_b1.close()
             for e in range(0, 25):
                 for f in range(0, 25):
                     hold_loss_w2 = nn(X)
@@ -94,9 +87,6 @@ def train(num1, X):
                     loss_test_w2 = nn(X)
                     if abs(hold_loss_w2) < abs(loss_test_w2):
                         w2[e][f] = hold_w2
-            PO_w2 = open("w2.pickle", "wb")
-            pickle.dump(w2, PO_w2)
-            PO_w2.close()
             for g in range(0, 25):
                 hold_loss_b2 = nn(X)
                 hold_b2 = b2[g]
@@ -104,9 +94,6 @@ def train(num1, X):
                 loss_test_b2 = nn(X)
                 if abs(hold_loss_b2) < abs(loss_test_b2):
                     b2[g] = hold_b2
-            PO_b2 = open("b2.pickle", "wb")
-            pickle.dump(b2, PO_b2)
-            PO_b2.close()
             for h in range(0, 25, 1):
                 for i in range(0, 2, 1):
                     hold_loss_w3 = nn(X)
@@ -115,9 +102,6 @@ def train(num1, X):
                     loss_test_w3 = nn(X)
                     if abs(hold_loss_w3) < abs(loss_test_w3):
                         w3[h][i] = hold_w3
-            PO_w3 = open("w3.pickle", "wb")
-            pickle.dump(w3, PO_w3)
-            PO_w3.close()
             for j in range(0, 1):
                 hold_loss_b3 = nn(X)
                 hold_b3 = b3[j]
@@ -125,6 +109,35 @@ def train(num1, X):
                 loss_test_b3 = nn(X)
                 if abs(hold_loss_b3) < abs(loss_test_b3):
                     b3[j] = hold_b3
-            PO_b3 = open("b3.pickle", "wb")
-            pickle.dump(b3, PO_b3)
-            PO_b3.close()
+
+
+def save():
+    PO_w1 = open("w1.pickle", "wb")
+    pickle.dump(w1, PO_w1)
+    PO_w1.close()
+    PO_b1 = open("b1.pickle", "wb")
+    pickle.dump(b1, PO_b1)
+    PO_b1.close()
+    PO_w2 = open("w2.pickle", "wb")
+    pickle.dump(w2, PO_w2)
+    PO_w2.close()
+    PO_b2 = open("b2.pickle", "wb")
+    pickle.dump(b2, PO_b2)
+    PO_b2.close()
+    PO_w3 = open("w3.pickle", "wb")
+    pickle.dump(w3, PO_w3)
+    PO_w3.close()
+    PO_b3 = open("b3.pickle", "wb")
+    pickle.dump(b3, PO_b3)
+    PO_b3.close()
+
+
+rand_nums = np.random.uniform(-1.0, 1, 25)
+X = np.array(rand_nums)
+start = timer()
+train(100, X)
+save
+end = timer()
+print(output(X))
+print(nn(X))
+print((end-start), 'seconds')
