@@ -3,6 +3,7 @@ from numba import jit, cuda
 import random
 import pickle
 from timeit import default_timer as timer
+from save_inputs_outputs import save_input
 
 
 # Change later to be input
@@ -30,7 +31,7 @@ def array(num):
     b3 = np.zeros(shape=(2))
 
 
-@jit(nopython=True, cache=True, fastmath=True)
+'''@jit(nopython=True, cache=True, fastmath=True)'''
 def activation(output, num):
     for n in range(0, 25):
         if output[n] > num:
@@ -52,7 +53,7 @@ def nn(data, to):
     return np.sum(loss)
 
 
-@jit(nopython=True, parallel=True, cache=True, fastmath=True)
+'''@jit(nopython=True, parallel=True, cache=True, fastmath=True)'''
 def output(data1):
     o1 = np.add(np.dot(w1, data1), b1)
     activation(o1, .5)

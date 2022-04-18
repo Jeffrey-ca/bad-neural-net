@@ -5,7 +5,7 @@ from neural_net import *
 rand_nums = np.zeros(shape=(25))
 X = np.array(rand_nums)
 start = timer()
-to = [1.0, .2]
+to = [1, .1]
 train(100, X, to)
 save()
 end = timer()
