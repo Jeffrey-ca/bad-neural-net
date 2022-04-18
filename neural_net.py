@@ -3,7 +3,6 @@ from numba import jit, cuda
 import random
 import pickle
 from timeit import default_timer as timer
-from save_inputs_outputs import save_input
 
 
 # Change later to be input
@@ -131,6 +130,25 @@ def save():
     PO_b3 = open("b3.pickle", "wb")
     pickle.dump(b3, PO_b3)
     PO_b3.close()
+
+
+def save_input(input, to):
+    file = open("saved_inputs.txt", "a")
+    content = str(input)
+    content1 = str(to)
+    file.write(content)
+    file.write(content1)
+    file.close()
+    file = open("saved_inputs.txt", "r")
+    a = file.read()
+    d = a.replace('[', ' ')
+    e = d.replace(']', ' ')
+    f = e.replace(',', ' ')
+    b = f.split()
+    for i in range(0, len(b), 27):
+        c = [float(b[i]), float(b[i + 1]), float(b[i + 2]), float(b[i + 3]), float(b[i + 4]), float(b[i + 5]), float(b[i + 6]), float(b[i + 7]), float(b[i + 8]), float(b[i + 9]), float(b[i + 10]), float(b[i + 11]), float(b[i + 12]),
+             float(b[i + 13]), float(b[i + 14]), float(b[i + 15]), float(b[i + 16]), float(b[i + 17]), float(b[i + 18]), float(b[i + 19]), float(b[i + 20]), float(b[i + 21]), float(b[i + 22]), float(b[i + 23]), float(b[i + 24])]
+        m = [float(b[i + 25]), float(b[i + 26])]
 
 
 '''rand_nums = np.zeros(shape=(25))
