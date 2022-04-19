@@ -1,24 +1,15 @@
-from neural_net import *
+from flask import Flask, request, abort
 
-# todo make data variable based on webhooks
+app = Flask(__name__)
 
-# this code trains the neural net
-rand_nums = np.zeros(shape=(25))
-X = np.array(rand_nums)
-start = timer()
-to = [1, .1]
-'''train(100, X, to)
-save()
-end = timer()
-print(output(X))
-print(nn(X, to))
-print((end-start), 'seconds')'''
 
-# this code produces output from neural net
-print(output(X))
-save_input(X, to)
-'''
-file = open("saved_inputs.txt", "r")
-output_of_nn = file.read()
-print(output_of_nn)
-'''
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        print(request.json)
+        return 'success', 200
+    else:
+        abort(400)
+
+if __name__ == '__main__':
+    app.run()

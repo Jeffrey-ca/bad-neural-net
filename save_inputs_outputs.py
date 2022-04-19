@@ -1,5 +1,5 @@
 import numpy as np
-from main import *
+from test import *
 
 
 def save_input():
