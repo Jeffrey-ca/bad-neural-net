@@ -62,56 +62,57 @@ def output(data1):
 
 
 def train(num1, X, to):
-    for z in range(0, num1, 1):
-        for a in range(1, 2, 1):
-            for c in range(0, 25):
-                for b in range(0, 25):
-                    hold_loss_w1 = nn(X, to)
-                    hold_w1 = w1[c][b]
-                    w1[c][b] = random.uniform(-1.0, 1)
-                    loss_test_w1 = nn(X, to)
-                    if abs(hold_loss_w1) < abs(loss_test_w1):
-                        w1[c][b] = hold_w1
-            for d in range(0, 25):
-                hold_loss_b1 = nn(X, to)
-                hold_b1 = b1[d]
-                b1[d] = random.uniform(-1.0, 1.0)
-                loss_test_b1 = nn(X, to)
-                if abs(hold_loss_b1) < abs(loss_test_b1):
-                    b1[d] = hold_b1
-            for e in range(0, 25):
-                for f in range(0, 25):
-                    hold_loss_w2 = nn(X, to)
-                    hold_w2 = w2[e][f]
-                    w2[e][f] = random.uniform(-1.0, 1)
-                    loss_test_w2 = nn(X, to)
-                    if abs(hold_loss_w2) < abs(loss_test_w2):
-                        w2[e][f] = hold_w2
-            for g in range(0, 25):
-                hold_loss_b2 = nn(X, to)
-                hold_b2 = b2[g]
-                b2[g] = random.uniform(-1.0, 1.0)
-                loss_test_b2 = nn(X, to)
-                if abs(hold_loss_b2) < abs(loss_test_b2):
-                    b2[g] = hold_b2
-            for h in range(0, 25, 1):
-                for i in range(0, 2, 1):
-                    hold_loss_w3 = nn(X, to)
-                    hold_w3 = w3[h][i]
-                    w3[h][i] = random.uniform(-1.0, 1)
-                    loss_test_w3 = nn(X, to)
-                    if abs(hold_loss_w3) < abs(loss_test_w3):
-                        w3[h][i] = hold_w3
-            for j in range(0, 1):
-                hold_loss_b3 = nn(X, to)
-                hold_b3 = b3[j]
-                b3[j] = random.uniform(-1.0, 1.0)
-                loss_test_b3 = nn(X, to)
-                if abs(hold_loss_b3) < abs(loss_test_b3):
-                    b3[j] = hold_b3
+    for x in range(0, num1, 1):
+        for z in range(0, 1, 1):
+            for a in range(1, 2, 1):
+                for c in range(0, 25):
+                    for b in range(0, 25):
+                        hold_loss_w1 = nn(X, to)
+                        hold_w1 = w1[c][b]
+                        w1[c][b] = random.uniform(-1.0, 1)
+                        loss_test_w1 = nn(X, to)
+                        if abs(hold_loss_w1) < abs(loss_test_w1):
+                            w1[c][b] = hold_w1
+                for d in range(0, 25):
+                    hold_loss_b1 = nn(X, to)
+                    hold_b1 = b1[d]
+                    b1[d] = random.uniform(-1.0, 1.0)
+                    loss_test_b1 = nn(X, to)
+                    if abs(hold_loss_b1) < abs(loss_test_b1):
+                        b1[d] = hold_b1
+                for e in range(0, 25):
+                    for f in range(0, 25):
+                        hold_loss_w2 = nn(X, to)
+                        hold_w2 = w2[e][f]
+                        w2[e][f] = random.uniform(-1.0, 1)
+                        loss_test_w2 = nn(X, to)
+                        if abs(hold_loss_w2) < abs(loss_test_w2):
+                            w2[e][f] = hold_w2
+                for g in range(0, 25):
+                    hold_loss_b2 = nn(X, to)
+                    hold_b2 = b2[g]
+                    b2[g] = random.uniform(-1.0, 1.0)
+                    loss_test_b2 = nn(X, to)
+                    if abs(hold_loss_b2) < abs(loss_test_b2):
+                        b2[g] = hold_b2
+                for h in range(0, 25, 1):
+                    for i in range(0, 2, 1):
+                        hold_loss_w3 = nn(X, to)
+                        hold_w3 = w3[h][i]
+                        w3[h][i] = random.uniform(-1.0, 1)
+                        loss_test_w3 = nn(X, to)
+                        if abs(hold_loss_w3) < abs(loss_test_w3):
+                            w3[h][i] = hold_w3
+                for j in range(0, 1):
+                    hold_loss_b3 = nn(X, to)
+                    hold_b3 = b3[j]
+                    b3[j] = random.uniform(-1.0, 1.0)
+                    loss_test_b3 = nn(X, to)
+                    if abs(hold_loss_b3) < abs(loss_test_b3):
+                        b3[j] = hold_b3
 
 
-def save():
+def save_weights():
     PO_w1 = open("w1.pickle", "wb")
     pickle.dump(w1, PO_w1)
     PO_w1.close()
@@ -131,33 +132,19 @@ def save():
     pickle.dump(b3, PO_b3)
     PO_b3.close()
 
-#TODO fix this so it saves to a dictionary and can be reread
-def save_input(input, nn_out):
-    file = open("saved_inputs.txt", "a")
-    content = str(input)
-    content1 = str(output(nn_out))
-    file.write(content)
-    file.write(content1)
-    file.close()
-    file = open("saved_inputs.txt", "r")
-    a = file.read()
-    d = a.replace('[', ' ')
-    e = d.replace(']', ' ')
-    f = e.replace(',', ' ')
-    b = f.split()
-    for i in range(0, len(b), 27):
-        c = [float(b[i]), float(b[i + 1]), float(b[i + 2]), float(b[i + 3]), float(b[i + 4]), float(b[i + 5]), float(b[i + 6]), float(b[i + 7]), float(b[i + 8]), float(b[i + 9]), float(b[i + 10]), float(b[i + 11]), float(b[i + 12]),
-             float(b[i + 13]), float(b[i + 14]), float(b[i + 15]), float(b[i + 16]), float(b[i + 17]), float(b[i + 18]), float(b[i + 19]), float(b[i + 20]), float(b[i + 21]), float(b[i + 22]), float(b[i + 23]), float(b[i + 24])]
-        m = [float(b[i + 25]), float(b[i + 26])]
+
+pickle_in = open('inputs.pickle', 'rb')
+inp = pickle.load(pickle_in)
+pickle_in2 = open('outputs.pickle', 'rb')
+out = pickle.load(pickle_in2)
 
 
-'''rand_nums = np.zeros(shape=(25))
-X = np.array(rand_nums)
-start = timer()
-to = [1.0, .2]
-train(100, X, to)
-save()
-end = timer()
-print(output(X))
-print(nn(X, to))
-print((end-start), 'seconds')'''
+def save_in_out(array2, array1):
+    inp[len(inp.keys())] = array2
+    pickle_out = open('inputs.pickle', 'wb')
+    pickle.dump(inp, pickle_out)
+    pickle_out.close()
+    out[len(out.keys())] = array1
+    pickle_out2 = open('outputs.pickle', 'wb')
+    pickle.dump(out, pickle_out2)
+    pickle_out2.close()
