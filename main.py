@@ -1,7 +1,6 @@
 from flask import Flask, request, abort
 from trade_options import *
 from neural_net import *
-from pybit import HTTP
 
 app = Flask(__name__)
 
