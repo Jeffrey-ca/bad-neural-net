@@ -132,10 +132,10 @@ def save():
     PO_b3.close()
 
 
-def save_input(input, to):
+def save_input(input, nn_out):
     file = open("saved_inputs.txt", "a")
     content = str(input)
-    content1 = str(to)
+    content1 = str(output(nn_out))
     file.write(content)
     file.write(content1)
     file.close()

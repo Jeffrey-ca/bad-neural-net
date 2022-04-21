@@ -16,7 +16,7 @@ print((end-start), 'seconds')
 
 # this code produces output from neural net
 print(output(X))
-'''save_input(X, to)'''
+'''save_input(X, output(X))'''
 '''
 file = open("saved_inputs.txt", "r")
 output_of_nn = file.read()
