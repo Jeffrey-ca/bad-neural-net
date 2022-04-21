@@ -131,7 +131,7 @@ def save():
     pickle.dump(b3, PO_b3)
     PO_b3.close()
 
-
+#TODO fix this so it saves to a dictionary and can be reread
 def save_input(input, nn_out):
     file = open("saved_inputs.txt", "a")
     content = str(input)
