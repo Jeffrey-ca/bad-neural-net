@@ -1,6 +1,7 @@
 from flask import Flask, request, abort
 from trade_options import *
 from neural_net import *
+from pybit import HTTP
 
 app = Flask(__name__)
 
@@ -8,6 +9,8 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == 'POST':
+        print(output(X))
+        save_input(X, output(X))
         print(request.json)
         long = 0
         short = 0
