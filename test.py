@@ -24,8 +24,9 @@ print(out[1])
 '''save_in_out(X, output(X))'''
 
 # this code is used to label the data for training
-'''out[0] = np.array([-0.5, .5])
+'''out[1] = np.array([0.8, -0.8])
 print(out)
 pickle_out2 = open('outputs.pickle', 'wb')
 pickle.dump(out, pickle_out2)
-pickle_out2.close()'''
+pickle_out2.close()
+'''

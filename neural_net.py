@@ -53,7 +53,7 @@ def nn():
         o1 = np.add(np.dot(w1, inp[i]), b1)
         activation3(o1)
         o2 = np.add(np.dot(w2, o1), b2)
-        activation3(o2)
+        activation2(o2)
         o3 = np.add(np.dot(o2, w3), b3)
         loss_array = abs(np.subtract(o3, out[i]))
         loss_2x = np.square(loss_array)
@@ -67,14 +67,13 @@ def output(data1):
     o1 = np.add(np.dot(w1, data1), b1)
     activation3(o1)
     o2 = np.add(np.dot(w2, o1), b2)
-    activation3(o2)
+    activation2(o2)
     o3 = np.add(np.dot(o2, w3), b3)
     return o3
 
 
 def train(num1, X, to):
     for x in range(0, num1, 1):
-        print(nn())
         for z in range(0, 1, 1):
             for a in range(1, 2, 1):
                 for c in range(0, 50):
