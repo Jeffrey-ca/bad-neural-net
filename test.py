@@ -4,10 +4,14 @@ from neural_net import *
 # todo make data variable based on webhooks
 
 # generates random numbers for input with set target output
-'''rand_nums = np.random.uniform(-1, 1, size=(10))'''
-'''to = [0, 0]
+rand_nums = np.random.uniform(-1, 1, size=(10))
+to = [0, 0]
 X = np.array(rand_nums)
-'''
+start = timer()
+print(output(X))
+end = timer()
+print(end-start)
+
 # This code trains neural net on previous runs
 
 '''start = timer()
@@ -34,4 +38,4 @@ print(out)
 pickle_out2 = open('outputs.pickle', 'wb')
 pickle.dump(out, pickle_out2)
 pickle_out2.close()'''
-print(inp)
+
