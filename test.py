@@ -10,8 +10,8 @@ X = np.array(rand_nums)
 '''
 # This code trains neural net on previous runs
 
-start = timer()
-for b in range(50):
+'''start = timer()
+for b in range(5):
     for i in range(len(out.keys())):
         train(1, inp[i], out[i])
         save_weights()
@@ -24,7 +24,7 @@ print(out[1])
 print('2', output(inp[2]))
 print(out[2])
 print('3', output(inp[3]))
-print(out[3])
+print(out[3])'''
 # this code is used to save inputs and outputs
 '''save_in_out(X, output(X))'''
 
@@ -34,3 +34,4 @@ print(out)
 pickle_out2 = open('outputs.pickle', 'wb')
 pickle.dump(out, pickle_out2)
 pickle_out2.close()'''
+print(inp)

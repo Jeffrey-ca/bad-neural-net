@@ -45,7 +45,19 @@ def close():
     print('close')
 
 # use this to turn incoming data from bybit into json file then read json file for price data & do this for balance on account too so percentage can be turned into usd
-y = session.latest_information_for_symbol(
+
+# I don't know why this isnt working
+'''y = session.latest_information_for_symbol(
     symbol="BTCUSD"
 )
 
+with open('data.json', 'w') as fp:
+    json.dump(y, fp)
+
+f = open('data.json')
+data = json.load(f)
+
+
+for key, value in data.items():
+    price = value['last_price']
+    print(price)'''
