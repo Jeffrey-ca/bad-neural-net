@@ -9,7 +9,7 @@ app = Flask(__name__)
 def webhook():
     if request.method == 'POST':
         print(output(X))
-        save_input(X, output(X))
+        save_in_out(X, output(X))
         print(request.json)
         long = 0
         short = 0

@@ -1,28 +1,51 @@
 from pybit import HTTP
-import urllib.request
+import json
 
-#TODO add api commands for this whole page
+# TODO add api commands for this whole page
 # Price * Available balance * leverage * percentage * (1-(0.00075*2))
 
 '''price = 
 balance = 
 '''
+# add api keys to this
+session = HTTP("https://api-testnet.bybit.com",
+               api_key="", api_secret="")
 
 
 def usd_to_perc(leverage, percentage):
     return(price * balance * 2 * leverage * percentage * (1-(0.00075*2)))
 
 
-def long():
+def long(amount):
     # send buy to trading platform
+    print(session.place_active_order(
+        symbol="BTCUSD",
+        side="Buy",
+        order_type="Market",
+        qty=amount,
+        time_in_force="GoodTillCancel"
+    ))
     print('long')
 
 
-def short():
+def short(amount):
     # send sell to trading platform
+    print(session.place_active_order(
+        symbol="BTCUSD",
+        side="Sell",
+        order_type="Market",
+        qty=amount,
+        time_in_force="GoodTillCancel"
+    ))
     print('short')
 
 
 def close():
     # send close position to platform
     print('close')
+
+# use this to turn incoming data from bybit into json file then read json file for price data & do this for balance on account too so percentage can be turned into usd
+y = session.latest_information_for_symbol(
+    symbol="BTCUSD"
+)
+
