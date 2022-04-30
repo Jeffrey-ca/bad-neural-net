@@ -2,6 +2,7 @@ from flask import Flask, request, abort
 from trade_options import *
 from neural_net import *
 from flask_ngrok import run_with_ngrok
+import json
 
 app = Flask(__name__)
 '''run_with_ngrok(app)'''
@@ -13,6 +14,8 @@ def webhook_to_array():
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == 'POST':
+        print(request.json)
+        return 200
         print(output(X))
         save_in_out(X, output(X))
         print(request.json)
