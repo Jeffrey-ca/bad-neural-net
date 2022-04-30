@@ -1,9 +1,14 @@
 from flask import Flask, request, abort
 from trade_options import *
 from neural_net import *
+from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
+'''run_with_ngrok(app)'''
 
+
+def webhook_to_array():
+    a = 1 + 1
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -23,7 +28,7 @@ def webhook():
                 long()
                 long += 1
             elif nn_output[1] >= .8 and short != 1:
-                short() 
+                short()
                 short += 1
         if trade == 1:
             nn_output = nn(X)

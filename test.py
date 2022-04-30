@@ -4,17 +4,17 @@ from neural_net import *
 # todo make data variable based on webhooks
 
 # generates random numbers for input with set target output
-rand_nums = np.random.uniform(-1, 1, size=(10))
+'''rand_nums = np.random.uniform(-1, 1, size=(10))
 to = [0, 0]
 X = np.array(rand_nums)
 start = timer()
 print(output(X))
 end = timer()
-print(end-start)
+print(end-start)'''
 
 # This code trains neural net on previous runs
 
-'''start = timer()
+start = timer()
 for b in range(5):
     for i in range(len(out.keys())):
         train(1, inp[i], out[i])
@@ -28,7 +28,7 @@ print(out[1])
 print('2', output(inp[2]))
 print(out[2])
 print('3', output(inp[3]))
-print(out[3])'''
+print(out[3])
 # this code is used to save inputs and outputs
 '''save_in_out(X, output(X))'''
 

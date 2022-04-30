@@ -1,7 +1,7 @@
 import requests
 import json
 
-webhook_url = 'http://127.0.0.1:5000/webhook'
+webhook_url = 'https://a8a2-69-204-191-79.ngrok.io'
 data = {'name': 'test',
         'Channel URL': 'test url'}
 
