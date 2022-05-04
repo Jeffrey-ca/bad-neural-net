@@ -1,7 +1,7 @@
 import requests
 import json
 
-webhook_url = 'http://54c2-69-204-191-79.ngrok.io/webhook'
+webhook_url = 'http://b823-69-204-191-79.ngrok.io/webhook'
 
 data = {'big dick': '> 2 inches',
         'small penis': '< 1.9 inch'}

@@ -21,7 +21,7 @@ w3 = pickle.load(PI_w3)
 PI_b3 = open('b3.pickle', 'rb')
 b3 = pickle.load(PI_b3)
 
-'''w1 = np.zeros(shape=(50, 10))
+'''w1 = np.zeros(shape=(50, 13))
 b1 = np.zeros(shape=(50))
 w2 = np.zeros(shape=(50, 50))
 b2 = np.zeros(shape=(50))
