@@ -21,6 +21,7 @@ w3 = pickle.load(PI_w3)
 PI_b3 = open('b3.pickle', 'rb')
 b3 = pickle.load(PI_b3)
 
+# use to change size of neural net before training
 '''w1 = np.zeros(shape=(50, 13))
 b1 = np.zeros(shape=(50))
 w2 = np.zeros(shape=(50, 50))
@@ -42,6 +43,7 @@ def activation2(output):
     for n in range(0, 50):
         output[n] = 1/(1+(math.e**-(output[n])))
 
+
 def activation3(output):
     for n in range(0, 50):
         output[n] = (2/(1+(math.e**-(2*output[n]))))-1
@@ -62,7 +64,6 @@ def nn():
     return np.sum(loss)
 
 
-
 def output(data1):
     o1 = np.add(np.dot(w1, data1), b1)
     activation3(o1)
@@ -72,7 +73,7 @@ def output(data1):
     return o3
 
 
-def train(num1, X, to):
+def train(num1):
     for x in range(0, num1, 1):
         for z in range(0, 1, 1):
             for a in range(1, 2, 1):
@@ -179,3 +180,21 @@ def save_in_out(array2, array1):
     pickle_out2 = open('outputs.pickle', 'wb')
     pickle.dump(out, pickle_out2)
     pickle_out2.close()
+
+
+def array(request_json):
+    X = np.zeros(shape=13)
+    X[0] = float(request_json["0"]) / 100000
+    X[1] = float(request_json["1"])
+    X[2] = float(request_json["2"])
+    X[3] = float(request_json["3"])
+    X[4] = float(request_json["4"])
+    X[5] = float(request_json["5"])
+    X[6] = float(request_json["6"])
+    X[7] = float(request_json["7"])
+    X[8] = float(request_json["8"]) / 100000
+    X[9] = float(request_json["9"]) / 100000
+    X[10] = float(request_json["10"]) / 100000
+    X[11] = float(request_json["11"]) / 100000
+    X[12] = float(request_json["12"]) / 100000000
+    return X

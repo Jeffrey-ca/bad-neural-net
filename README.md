@@ -6,3 +6,18 @@ run main.py in cmd
 run ngrok http 5000 in cmd
 ???
 profit
+
+
+{ "EMA 21" : "{{plot_6}}",
+"Yellow Diamond" : "{{plot_11}}",
+"Trend Change" : "{{plot_12}}",
+"Green Dot" : "{{plot_13}}",
+"Red X" : "{{plot_14}}",
+"Manipulation" : "{{plot_15}}",
+"Red Diamond" : "{{plot_16}}",
+"Blood Diamond" : "{{plot_17}}",
+"Close" : "{{close}}",
+"Open" : "{{open}}",
+"High" : "{{high}}",
+"Low" : "{{low}}",
+"Volume" : "{{volume}}" }

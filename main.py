@@ -10,11 +10,10 @@ run_with_ngrok(app)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        request_json = request.json
-        wh = open("wh.pickle", "wb")
-        pickle.dump(request_json, wh)
-        wh.close()
-        print(request_json)
+        X = array(request.json)
+        out = output(X)
+        save_in_out(X, output(X))
+        print(X)
         return 'success', 200
     else:
         abort(400)
