@@ -8,8 +8,10 @@ import json
 balance = 
 '''
 # add api keys to this
-session = HTTP("https://api-testnet.bybit.com",
+
+session = HTTP("https://api.bybit.com",
                api_key="", api_secret="")
+
 
 
 def usd_to_perc(leverage, percentage):
@@ -18,29 +20,29 @@ def usd_to_perc(leverage, percentage):
 
 def long_(amount, price, sl_tp):
     # send buy to trading platform
-    print(session.place_active_order(
+    session.place_active_order(
         symbol="BTCUSD",
         side="Buy",
         order_type="Market",
         qty=amount,
-        take_profit=price+sl_tp
-        stop_loss=price-sl_tp
+        take_profit=price+sl_tp,
+        stop_loss=price-sl_tp,
         time_in_force="GoodTillCancel"
-    ))
+    )
     print('long')
 
 
 def short(amount, price, sl_tp):
     # send sell to trading platform
-    print(session.place_active_order(
+    session.place_active_order(
         symbol="BTCUSD",
         side="Sell",
         order_type="Market",
         qty=amount,
-        take_profit=price-sl_tp
-        stop_loss=price+sl_tp
+        take_profit=price-sl_tp,
+        stop_loss=price+sl_tp,
         time_in_force="GoodTillCancel"
-    ))
+    )
     print('short')
 
 

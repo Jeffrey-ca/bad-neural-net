@@ -223,10 +223,14 @@ def array(request_json):
         X[6] = 0
     return X
 
-
+#TODO fix this so it works
 def remove_dup():
     for i in range(len(inp.keys())):
         for e in range(len(inp.keys())):
-            if inp[i] == inp[e]:
+            if inp[i].any == inp[e].any:
                 inp.pop(e)
                 out.pop(e)
+
+def io_pop(num):
+    out.pop(num)
+    inp.pop(num)
