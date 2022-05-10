@@ -2,15 +2,16 @@ from neural_net import *
 
 #this trains neural net
 start = timer()
-for b in range(50):
+for b in range(5):
     for i in range(len(out.keys())):
-        train(1)
-        a = nn()
+        train(1, inp[i], out[i])
+        a = nn(inp[i], out[i])
         print(a)
+        save_weights()
 print('0', output(inp[0]))
 print(out[0])
-print('1', output(inp[1]))
-print(out[1])
+'''print('1', output(inp[1]))
+print(out[1])'''
 end = timer()
 print(end-start)
 
@@ -19,7 +20,7 @@ print(end-start)
 inp = pickle.load(pickle_in)
 pickle_in2 = open('outputs.pickle', 'rb')
 out = pickle.load(pickle_in2)
-out[1] = np.array([-1.0, 1.0])
+out[0] = np.array([-1.0, 1.0])
 print(out)
 pickle_out = open('inputs.pickle', 'wb')
 pickle.dump(inp, pickle_out)

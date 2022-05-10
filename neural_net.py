@@ -22,7 +22,7 @@ PI_b3 = open('b3.pickle', 'rb')
 b3 = pickle.load(PI_b3)
 
 # use to change size of neural net before training
-'''w1 = np.zeros(shape=(50, 13))
+'''w1 = np.zeros(shape=(50, 12))
 b1 = np.zeros(shape=(50))
 w2 = np.zeros(shape=(50, 50))
 b2 = np.zeros(shape=(50))
@@ -49,7 +49,7 @@ def activation3(output):
         output[n] = (2/(1+(math.e**-(2*output[n]))))-1
 
 
-def nn():
+def nn(X, to):
     loss = 0
     for i in range(len(inp.keys())):
         o1 = np.add(np.dot(w1, inp[i]), b1)
@@ -57,10 +57,10 @@ def nn():
         o2 = np.add(np.dot(w2, o1), b2)
         activation2(o2)
         o3 = np.add(np.dot(o2, w3), b3)
-        loss_array = abs(np.subtract(o3, out[i]))
+        loss_array = np.subtract(o3, out[i])
         loss_2x = np.square(loss_array)
         for p in range(len(loss_2x)):
-            loss = abs(loss) + abs(loss_2x[p])
+            loss = loss + loss_2x[p]
     return np.sum(loss)
 
 
@@ -73,55 +73,75 @@ def output(data1):
     return o3
 
 
-def train(num1):
+def train(num1, X, to):
     for x in range(0, num1, 1):
         for z in range(0, 1, 1):
             for a in range(1, 2, 1):
                 for c in range(0, 50):
-                    for b in range(0, 13):
-                        hold_loss_w1 = nn()
+                    for b in range(0, 10):
+                        hold_loss_w1 = nn(X, to)
                         hold_w1 = w1[c][b]
                         w1[c][b] = random.uniform(-1.0, 1.0)
-                        loss_test_w1 = nn()
+                        loss_test_w1 = nn(X, to)
                         if abs(hold_loss_w1) < abs(loss_test_w1):
                             w1[c][b] = hold_w1
                 for d in range(0, 50):
-                    hold_loss_b1 = nn()
+                    hold_loss_b1 = nn(X, to)
                     hold_b1 = b1[d]
                     b1[d] = random.uniform(-1.0, 1.0)
-                    loss_test_b1 = nn()
+                    loss_test_b1 = nn(X, to)
                     if abs(hold_loss_b1) < abs(loss_test_b1):
                         b1[d] = hold_b1
                 for e in range(0, 50):
                     for f in range(0, 50):
-                        hold_loss_w2 = nn()
+                        hold_loss_w2 = nn(X, to)
                         hold_w2 = w2[e][f]
                         w2[e][f] = random.uniform(-1.0, 1.0)
-                        loss_test_w2 = nn()
+                        loss_test_w2 = nn(X, to)
                         if abs(hold_loss_w2) < abs(loss_test_w2):
                             w2[e][f] = hold_w2
                 for g in range(0, 50):
-                    hold_loss_b2 = nn()
+                    hold_loss_b2 = nn(X, to)
                     hold_b2 = b2[g]
                     b2[g] = random.uniform(-1.0, 1.0)
-                    loss_test_b2 = nn()
+                    loss_test_b2 = nn(X, to)
                     if abs(hold_loss_b2) < abs(loss_test_b2):
                         b2[g] = hold_b2
                 for h in range(0, 50, 1):
                     for i in range(0, 2, 1):
-                        hold_loss_w3 = nn()
+                        hold_loss_w3 = nn(X, to)
                         hold_w3 = w3[h][i]
                         w3[h][i] = random.uniform(-1.0, 1.0)
-                        loss_test_w3 = nn()
+                        loss_test_w3 = nn(X, to)
                         if abs(hold_loss_w3) < abs(loss_test_w3):
                             w3[h][i] = hold_w3
                 for j in range(0, 1):
-                    hold_loss_b3 = nn()
+                    hold_loss_b3 = nn(X, to)
                     hold_b3 = b3[j]
                     b3[j] = random.uniform(-1.0, 1.0)
-                    loss_test_b3 = nn()
+                    loss_test_b3 = nn(X, to)
                     if abs(hold_loss_b3) < abs(loss_test_b3):
                         b3[j] = hold_b3
+
+
+PO_w1 = open("w1.pickle", "wb")
+pickle.dump(w1, PO_w1)
+PO_w1.close()
+PO_b1 = open("b1.pickle", "wb")
+pickle.dump(b1, PO_b1)
+PO_b1.close()
+PO_w2 = open("w2.pickle", "wb")
+pickle.dump(w2, PO_w2)
+PO_w2.close()
+PO_b2 = open("b2.pickle", "wb")
+pickle.dump(b2, PO_b2)
+PO_b2.close()
+PO_w3 = open("w3.pickle", "wb")
+pickle.dump(w3, PO_w3)
+PO_w3.close()
+PO_b3 = open("b3.pickle", "wb")
+pickle.dump(b3, PO_b3)
+PO_b3.close()
 
 
 def save_weights():
@@ -162,19 +182,43 @@ def save_in_out(array2, array1):
     pickle_out2.close()
 
 
+'''inp = {}
+out = {}
+pickle_out = open('inputs.pickle', 'wb')
+pickle.dump(inp, pickle_out)
+pickle_out.close()
+pickle_out2 = open('outputs.pickle', 'wb')
+pickle.dump(out, pickle_out2)
+pickle_out2.close()'''
+
+
 def array(request_json):
-    X = np.zeros(shape=13)
-    X[0] = float(request_json["0"]) / 100000
-    X[1] = float(request_json["1"])
+    X = np.zeros(shape=12)
+    X[0] = float(request_json["0"]) / 10
+    X[1] = float(request_json["1"]) / 10
     X[2] = float(request_json["2"])
-    X[3] = float(request_json["3"])
-    X[4] = float(request_json["4"])
-    X[5] = float(request_json["5"])
-    X[6] = float(request_json["6"])
-    X[7] = float(request_json["7"])
+    X[3] = float(request_json["3"]) / 100
+    if request_json["4"] == 'null':
+        X[4] = 0
+    else:
+        X[4] = float(request_json["4"])
+    if request_json["5"] == 'null':
+        X[5] = 0
+    else:
+        X[5] = float(request_json["5"])
+    if request_json["6"] == 'null':
+        X[6] = 0
+    else:
+        X[6] = float(request_json["6"])
+    X[7] = float(request_json["7"]) / 100000
     X[8] = float(request_json["8"]) / 100000
     X[9] = float(request_json["9"]) / 100000
     X[10] = float(request_json["10"]) / 100000
-    X[11] = float(request_json["11"]) / 100000
-    X[12] = float(request_json["12"]) / 100000000
+    X[11] = float(request_json["11"]) / 100000000
+    if X[4] == 'null':
+        X[4] = 0
+    if X[5] == 'null':
+        X[5] = 0
+    if X[6] == 'null':
+        X[6] = 0
     return X
