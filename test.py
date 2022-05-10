@@ -1,6 +1,6 @@
 from neural_net import *
 
-#this trains neural net
+# this trains neural net
 start = timer()
 for b in range(5):
     for i in range(len(out.keys())):
@@ -15,7 +15,7 @@ print(out[1])'''
 end = timer()
 print(end-start)
 
-## edit outputs and inputs
+# edit outputs and inputs
 '''pickle_in = open('inputs.pickle', 'rb')
 inp = pickle.load(pickle_in)
 pickle_in2 = open('outputs.pickle', 'rb')
@@ -28,5 +28,6 @@ pickle_out.close()
 pickle_out2 = open('outputs.pickle', 'wb')
 pickle.dump(out, pickle_out2)
 pickle_out2.close()'''
-
+# removes duplication entries in the inp and out dictionaries
+'''remove_dup()'''
 # {'EMA 21': '38500.21186664863', 'Yellow Diamond': '0', 'Trend Change': '0', 'Green Dot': '0', 'Red X': '0', 'Manipulation': '0', 'Red Diamond': '0', 'Blood Diamond': '0', 'Close': '39062.5', 'Open': '38947', 'High': '39077.5', 'Low': '38946.5', 'Volume': '23983115'}

@@ -222,3 +222,11 @@ def array(request_json):
     if X[6] == 'null':
         X[6] = 0
     return X
+
+
+def remove_dup():
+    for i in range(len(inp.keys())):
+        for e in range(len(inp.keys())):
+            if inp[i] == inp[e]:
+                inp.pop(e)
+                out.pop(e)

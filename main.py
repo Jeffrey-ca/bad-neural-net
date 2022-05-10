@@ -10,11 +10,22 @@ run_with_ngrok(app)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == 'POST':
+        amount = 50
+        amountx2 = amount * 2
+        variable_sl_tp = 500
+        price = int(round((request_json["7"])))
         X = array(request.json)
         out = output(X)
         save_in_out(X, output(X))
-        print(X)
-        print(output(X))
+        trade = 0
+        if out[0] > .5 and trade == 0:
+            long_(amount, price, variable_sl_tp)
+        if out[1] < -0.5 and trade == 0:
+            short(amount, price, variable_sl_tp)
+        if out[0] > .5 and trade != 0:
+            long_(amount2x, price, variable_sl_tp)
+        if out[0] < -0.5 and trade != 0:
+            short(amount2x, price, variable_sl_tp)
         return 'success', 200
     else:
         abort(400)
