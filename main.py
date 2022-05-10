@@ -14,6 +14,7 @@ def webhook():
         out = output(X)
         save_in_out(X, output(X))
         print(X)
+        print(output(X))
         return 'success', 200
     else:
         abort(400)

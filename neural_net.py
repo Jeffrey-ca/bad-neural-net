@@ -78,7 +78,7 @@ def train(num1):
         for z in range(0, 1, 1):
             for a in range(1, 2, 1):
                 for c in range(0, 50):
-                    for b in range(0, 10):
+                    for b in range(0, 13):
                         hold_loss_w1 = nn()
                         hold_w1 = w1[c][b]
                         w1[c][b] = random.uniform(-1.0, 1.0)
@@ -122,26 +122,6 @@ def train(num1):
                     loss_test_b3 = nn()
                     if abs(hold_loss_b3) < abs(loss_test_b3):
                         b3[j] = hold_b3
-
-
-PO_w1 = open("w1.pickle", "wb")
-pickle.dump(w1, PO_w1)
-PO_w1.close()
-PO_b1 = open("b1.pickle", "wb")
-pickle.dump(b1, PO_b1)
-PO_b1.close()
-PO_w2 = open("w2.pickle", "wb")
-pickle.dump(w2, PO_w2)
-PO_w2.close()
-PO_b2 = open("b2.pickle", "wb")
-pickle.dump(b2, PO_b2)
-PO_b2.close()
-PO_w3 = open("w3.pickle", "wb")
-pickle.dump(w3, PO_w3)
-PO_w3.close()
-PO_b3 = open("b3.pickle", "wb")
-pickle.dump(b3, PO_b3)
-PO_b3.close()
 
 
 def save_weights():
