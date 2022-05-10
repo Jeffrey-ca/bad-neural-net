@@ -18,16 +18,19 @@ def webhook():
         out = output(X)
         save_in_out(X, output(X))
         trade = 0
+        pos = 0
         if out[0] > 0.5 and trade == 0:
             long_(amount, price, variable_sl_tp)
             trade += 1
         if out[1] > 0.5 and trade == 0:
             short(amount, price, variable_sl_tp)
-            trade += 1
-        if out[0] > 0.5 and trade != 0:
+            trade -= 1
+        if out[0] > 0.5 and trade != 0 and pos != 1:
             long_(amount2x, price, variable_sl_tp)
-        if out[1] > 0.5 and trade != 0:
+            pos = 1
+        if out[1] > 0.5 and trade != 0 and pos != -1:
             short(amount2x, price, variable_sl_tp)
+            pos = -1
         return 'success', 200
     else:
         abort(400)
