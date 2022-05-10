@@ -182,16 +182,6 @@ def save_in_out(array2, array1):
     pickle_out2.close()
 
 
-'''inp = {}
-out = {}
-pickle_out = open('inputs.pickle', 'wb')
-pickle.dump(inp, pickle_out)
-pickle_out.close()
-pickle_out2 = open('outputs.pickle', 'wb')
-pickle.dump(out, pickle_out2)
-pickle_out2.close()'''
-
-
 def array(request_json):
     X = np.zeros(shape=12)
     X[0] = float(request_json["0"]) / 10
@@ -223,7 +213,9 @@ def array(request_json):
         X[6] = 0
     return X
 
-#TODO fix this so it works
+# TODO fix this so it works
+
+
 def remove_dup():
     for i in range(len(inp.keys())):
         for e in range(len(inp.keys())):
@@ -231,6 +223,16 @@ def remove_dup():
                 inp.pop(e)
                 out.pop(e)
 
+
 def io_pop(num):
     out.pop(num)
     inp.pop(num)
+
+
+def holdprice(price, sl_tp):
+    price1 = price - sl_tp
+    price2 = price + sl_tp
+    heldprice = [int(price1), int(price2)]
+    pickle_out2 = open('heldprice.pickle', 'wb')
+    pickle.dump(heldprice, pickle_out2)
+    pickle_out2.close()
