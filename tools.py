@@ -1,7 +1,7 @@
 from neural_net import *
 
 # this trains neural net
-start = timer()
+'''start = timer()
 for b in range(1):
     for i in range(len(out.keys())):
         train(1, inp[i], out[i])
@@ -12,7 +12,7 @@ for i in range(len(out.keys())):
     print(i, output(inp[i]))
     print(out[i])
 end = timer()
-print(end-start)
+print(end-start)'''
 
 
 # edit outputs and inputs

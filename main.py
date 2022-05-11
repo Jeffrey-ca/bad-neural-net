@@ -10,7 +10,7 @@ run_with_ngrok(app)
 
 
 @app.route('/webhook', methods=['POST'])
-def webhook():
+def webhook(): # TODO make this find array and count each webhook till all are recieved, once all are recieved then send to trade.
     if request.method == 'POST':
         pickle_in3 = open('trade.pickle', 'rb')
         trade = pickle.load(pickle_in3)
@@ -18,8 +18,8 @@ def webhook():
         pos = pickle.load(pickle_in4)
         pickle_in2 = open('heldprice.pickle', 'rb')
         heldprice = pickle.load(pickle_in2)
-        amount = 10
-        variable_sl_tp = 300
+        amount = 30
+        variable_sl_tp = 500
         amountx2 = amount * 2
         price = int(round(float(request.json["7"])))
         X = array(request.json)
@@ -73,6 +73,8 @@ def webhook():
     else:
         abort(400)
 
+def trade(X):
+    # TODO Move all trade logic here
 
 if __name__ == '__main__':
     app.run()

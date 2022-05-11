@@ -22,6 +22,7 @@ PI_b3 = open('b3.pickle', 'rb')
 b3 = pickle.load(PI_b3)
 
 # use to change size of neural net before training
+#TODO change array size for multiple webhooks
 '''w1 = np.zeros(shape=(50, 12))
 b1 = np.zeros(shape=(50))
 w2 = np.zeros(shape=(50, 50))
@@ -39,7 +40,7 @@ def activation3(output):
     for n in range(0, 50):
         output[n] = (2/(1+(math.e**-(2*output[n]))))-1
 
-
+#TODO make this parallel 
 def nn(X, to):
     loss = 0
     for i in range(len(inp.keys())):
@@ -172,7 +173,7 @@ def save_in_out(array2, array1):
     pickle.dump(out, pickle_out2)
     pickle_out2.close()
 
-
+#TODO make this differentiate between each array
 def array(request_json):
     X = np.zeros(shape=12)
     X[0] = float(request_json["0"]) / 10
@@ -227,3 +228,6 @@ def holdprice(price, sl_tp):
     pickle_out2 = open('heldprice.pickle', 'wb')
     pickle.dump(heldprice, pickle_out2)
     pickle_out2.close()
+
+
+#TODO add automatic labeling of previous trades for easier training
