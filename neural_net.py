@@ -30,15 +30,6 @@ w3 = np.zeros(shape=(50, 2))
 b3 = np.zeros(shape=(2))'''
 
 
-@jit(nopython=True, cache=True, fastmath=True)
-def activation(output, num):
-    for n in range(0, 50):
-        if output[n] > num:
-            output[n] = 1
-        else:
-            output[n] = 0
-
-
 def activation2(output):
     for n in range(0, 50):
         output[n] = 1/(1+(math.e**-(output[n])))
