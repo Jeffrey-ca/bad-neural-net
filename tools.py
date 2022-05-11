@@ -20,15 +20,31 @@ print(end-start)'''
 inp = pickle.load(pickle_in)
 pickle_in2 = open('outputs.pickle', 'rb')
 out = pickle.load(pickle_in2)'''
-#out[4] = np.array([1, -.1])
-'''
-print(inp)
+'''out[10] = np.array([-0.2, .9])
+out[11] = np.array([0, 0])
+out[12] = np.array([0, 1])
+out[13] = np.array([0, .4])
+out[14] = np.array([-.5, .9])
+out[15] = np.array([-1, 1])
+out[16] = np.array([0.2, .5])
+out[17] = np.array([.5, 0])
+out[18] = np.array([0, 0])
+out[19] = np.array([0, .6])
+out[20] = np.array([.9, -.1])
+out[21] = np.array([.5, -.5])
+out[22] = np.array([0, 0])
+out[23] = np.array([.9, 0])
+out[24] = np.array([0.3, 1])'''
+
+'''print(inp)
 pickle_out = open('inputs.pickle', 'wb')
 pickle.dump(inp, pickle_out)
 pickle_out.close()
 pickle_out2 = open('outputs.pickle', 'wb')
 pickle.dump(out, pickle_out2)
-pickle_out2.close()'''
+pickle_out2.close()
+'''
+#io_pop() to remove item from list
 # removes duplication entries in the inp and out dictionaries
 
 '''remove_dup()'''
@@ -38,14 +54,14 @@ pickle_out2.close()'''
 trade = pickle.load(pickle_in3)
 pickle_in4 = open('pos.pickle', 'rb')
 pos = pickle.load(pickle_in4)'''
-'''trade = 0
+trade = 0
 pos = 0
 pickle_out4 = open('pos.pickle', 'wb')
 pickle.dump(pos, pickle_out4)
 pickle_out4.close()
 pickle_out3 = open('trade.pickle', 'wb')
 pickle.dump(trade, pickle_out3)
-pickle_out3.close()'''
+pickle_out3.close()
 
 
 # This sets input and output dictionaries to nothing
@@ -58,11 +74,11 @@ pickle_out2 = open('outputs.pickle', 'wb')
 pickle.dump(out, pickle_out2)
 pickle_out2.close()'''
 
-
-'''heldprice = holdprice(30600, 500)
+# change held price for stop loss & take profit
+'''heldprice = holdprice(30900, 500)
 pickle_out2 = open('heldprice.pickle', 'wb')
 pickle.dump(heldprice, pickle_out2)
 pickle_out2.close()'''
-pickle_in2 = open('heldprice.pickle', 'rb')
+'''pickle_in2 = open('heldprice.pickle', 'rb')
 heldprice = pickle.load(pickle_in2)
-print(heldprice)
+print(heldprice)'''
