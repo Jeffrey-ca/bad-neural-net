@@ -1,9 +1,9 @@
 from pybit import HTTP
 import json
 
-# TODO add api commands for this whole page
-# Price * Available balance * leverage * percentage * (1-(0.00075*2))
 
+# Price * Available balance * leverage * percentage * (1-(0.00075*2))
+# TODO add closed p&L for previous trades
 '''price = 
 balance = 
 '''
@@ -11,7 +11,6 @@ balance =
 
 session = HTTP("https://api.bybit.com",
                api_key="", api_secret="")
-
 
 
 def usd_to_perc(leverage, percentage):
@@ -44,6 +43,10 @@ def short(amount, price, sl_tp):
         time_in_force="GoodTillCancel"
     )
     print('short')
+
+
+def last_trade():
+    return (session.closed_profit_and_loss(symbol="BTCUSD"))
 
 
 def close():

@@ -7,7 +7,6 @@ for b in range(1):
         train(1, inp[i], out[i])
         a = nn(inp[i], out[i])
         print(a)
-        save_weights()
 for i in range(len(out.keys())):
     print(i, output(inp[i]))
     print(out[i])
@@ -79,3 +78,18 @@ pickle_out2.close()'''
 '''pickle_in2 = open('heldprice.pickle', 'rb')
 heldprice = pickle.load(pickle_in2)
 print(heldprice)'''
+
+# sets neural net input and webhook counter to zero
+'''X = np.zeros(shape=40)
+webhook = [0, 0, 0, 0, 0]
+pickle_out5 = open('webhook.pickle', 'wb')
+pickle.dump(webhook, pickle_out5)
+pickle_out5.close()
+pickle_out6 = open('X.pickle', 'wb')
+pickle.dump(X, pickle_out6)
+pickle_out6.close()'''
+
+# this code is the magic code to access last trade profit and loss
+'''last_trade = last_trade()
+print(last_trade["result"]["data"][0]["closed_pnl"])
+last_trade["result"]["data"][0]["closed_pnl"]'''
