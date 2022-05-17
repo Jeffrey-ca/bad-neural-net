@@ -73,7 +73,7 @@ def nn(X, to):
         o2 = np.add(np.dot(w2, o1), b2)
         activation2(o2)
         o3 = np.add(np.dot(o2, w3), b3)
-        loss_array = np.subtract(o3, out[i])
+        loss_array = abs(np.subtract(o3, out[i]))
         loss_2x = np.square(loss_array)
         for p in range(len(loss_2x)):
             loss = loss + loss_2x[p]
