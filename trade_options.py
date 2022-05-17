@@ -45,7 +45,7 @@ def short(amount, price, sl_tp):
     print('short')
 
 
-def last_trade():
+def last_trade_closed():
     return (session.closed_profit_and_loss(symbol="BTCUSD"))
 
 

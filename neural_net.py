@@ -4,6 +4,7 @@ import math
 import random
 import pickle
 from timeit import default_timer as timer
+from trade_options import *
 
 
 # Change later to be input
@@ -291,6 +292,7 @@ def holdprice(price, sl_tp):
     pickle.dump(heldprice, pickle_out2)
     pickle_out2.close()
 
+
 def reset():
     trade = 0
     pos = 0
@@ -309,6 +311,7 @@ def reset():
     pickle.dump(X, pickle_out6)
     pickle_out6.close()
 
+
 def reset_training_data():
     inp = {}
     out = {}
@@ -319,7 +322,8 @@ def reset_training_data():
     pickle.dump(out, pickle_out2)
     pickle_out2.close()
 
-def trade(X): #TODO for save_in_out add logic with magic code to automatically label previous trades as good or bad
+
+def trade(X):
     pickle_in3 = open('trade.pickle', 'rb')
     trade = pickle.load(pickle_in3)
     pickle_in4 = open('pos.pickle', 'rb')
@@ -327,7 +331,7 @@ def trade(X): #TODO for save_in_out add logic with magic code to automatically l
     pickle_in2 = open('heldprice.pickle', 'rb')
     heldprice = pickle.load(pickle_in2)
     amount = 30
-    variable_sl_tp = 500
+    variable_sl_tp = 1000
     amountx2 = amount * 2
     price = X[7] * 100000
     out = output(X)
@@ -351,12 +355,14 @@ def trade(X): #TODO for save_in_out add logic with magic code to automatically l
         pos = 1
         save_in_out(X, output(X))
         holdprice(price, variable_sl_tp)
+        auto_label_last()
         print('This should be after first trade')
     elif out[1] > 0.5 and out[0] < 0.5 and trade != 0 and pos != -1:
         short(amountx2, price, variable_sl_tp)
         pos = -1
         save_in_out(X, output(X))
         holdprice(price, variable_sl_tp)
+        auto_label_last()
         print('This should be after first trade')
     if price < heldprice[0] and pos == 1:
         pos = 0
@@ -377,4 +383,37 @@ def trade(X): #TODO for save_in_out add logic with magic code to automatically l
     pickle.dump(trade, pickle_out3)
     pickle_out3.close()
 
-# TODO add automatic labeling of previous trades for easier training
+
+def auto_label_last():
+    last_trade = last_trade_closed()
+    pnl = last_trade["result"]["data"][0]["closed_pnl"]
+    long_short = last_trade["result"]["data"][0]["side"]
+    entry_value = last_trade["result"]["data"][0]["avg_entry_price"]
+    exit_value = last_trade["result"]["data"][0]["avg_exit_price"]
+    leverage = last_trade["result"]["data"][0]["leverage"]
+    if long_short == "Buy":
+        if ((exit_value / entry_value)-1) * 100 * leverage >= 50:
+            out[len(out.keys())-1] = [-.8, 1]
+        elif ((exit_value / entry_value)-1) * 100 * leverage >= 10:
+            out[len(out.keys())-1] = [-.2, .5]
+        elif ((exit_value / entry_value)-1) * 100 * leverage >= 1:
+            out[len(out.keys())-1] = [0, 0]
+        elif ((exit_value / entry_value)-1) * 100 * leverage <= -1:
+            out[len(out.keys())-1] = [0, 0]
+        elif ((exit_value / entry_value)-1) * 100 * leverage <= -10:
+            out[len(out.keys())-1] = [.5, -.2]
+        elif ((exit_value / entry_value)-1) * 100 * leverage >= -50:
+            out[len(out.keys())-1] = [.8, -1]
+    if long_short == "Sell":
+        if (1-(exit_value / entry_value)) * 100 * leverage >= 50:
+            out[len(out.keys())-1] = [-.8, .8]
+        elif (1-(exit_value / entry_value)) * 100 * leverage >= 10:
+            out[len(out.keys())-1] = [-.2, .5]
+        elif (1-(exit_value / entry_value)) * 100 * leverage >= 1:
+            out[len(out.keys())-1] = [0, 0]
+        elif (1-(exit_value / entry_value)) * 100 * leverage <= 1:
+            out[len(out.keys())-1] = [0, 0]
+        elif (1-(exit_value / entry_value)) * 100 * leverage <= 10:
+            out[len(out.keys())-1] = [.5, -.2]
+        elif (1-(exit_value / entry_value)) * 100 * leverage >= 50:
+            out[len(out.keys())-1] = [.8, -.8]

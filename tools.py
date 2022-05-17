@@ -13,6 +13,7 @@ for i in range(len(out.keys())):
 end = timer()
 print(end-start)'''
 
+# TODO delete everything below
 
 # edit outputs and inputs
 '''pickle_in = open('inputs.pickle', 'rb')
@@ -44,6 +45,10 @@ pickle_out2.close()'''
 # removes duplication entries in the inp and out dictionaries
 
 '''remove_dup()'''
+
+
+
+
 
 # this sets default values for trade and position
 '''pickle_in3 = open('trade.pickle', 'rb')
@@ -93,3 +98,5 @@ pickle_out6.close()'''
 '''last_trade = last_trade()
 print(last_trade["result"]["data"][0]["closed_pnl"])
 last_trade["result"]["data"][0]["closed_pnl"]'''
+
+'''auto_label_last()'''
