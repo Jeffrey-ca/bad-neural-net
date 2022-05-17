@@ -349,7 +349,6 @@ def trade(X):
     amountx2 = amount * 2
     price = X[7] * 100000
     out = output(X)
-    print(output(X))
     if out[0] > 0.5 and out[1] < 0.5 and trade == 0:
         long_(amount, price, variable_sl_tp)
         pos = 1
@@ -370,13 +369,15 @@ def trade(X):
         save_in_out(X, output(X))
         holdprice(price, variable_sl_tp)
         auto_label_last()
+        auto_train()
         print('This should be after first trade')
     elif out[1] > 0.5 and out[0] < 0.5 and trade != 0 and pos != -1:
         short(amountx2, price, variable_sl_tp)
         pos = -1
         save_in_out(X, output(X))
         holdprice(price, variable_sl_tp)
-        auto_label_last()
+        auto_label_last() 
+        auto_train()
         print('This should be after first trade')
     if price < heldprice[0] and pos == 1:
         pos = 0
@@ -414,12 +415,12 @@ def auto_label_last():
             out[len(out.keys())-1] = [-.2, .5]
         elif ((exit_value / entry_value)-1) * 100 * leverage >= 1:
             out[len(out.keys())-1] = [0, 0]
-        elif ((exit_value / entry_value)-1) * 100 * leverage <= -1:
-            out[len(out.keys())-1] = [0, 0]
+        elif ((exit_value / entry_value)-1) * 100 * leverage <= -50:
+            out[len(out.keys())-1] = [.8, -1]
         elif ((exit_value / entry_value)-1) * 100 * leverage <= -10:
             out[len(out.keys())-1] = [.5, -.2]
-        elif ((exit_value / entry_value)-1) * 100 * leverage >= -50:
-            out[len(out.keys())-1] = [.8, -1]
+        elif ((exit_value / entry_value)-1) * 100 * leverage <= -1:
+            out[len(out.keys())-1] = [0, 0]
     if long_short == "Sell":
         if (1-(exit_value / entry_value)) * 100 * leverage >= 50:
             out[len(out.keys())-1] = [-.8, .8]
@@ -427,9 +428,20 @@ def auto_label_last():
             out[len(out.keys())-1] = [-.2, .5]
         elif (1-(exit_value / entry_value)) * 100 * leverage >= 1:
             out[len(out.keys())-1] = [0, 0]
-        elif (1-(exit_value / entry_value)) * 100 * leverage <= 1:
-            out[len(out.keys())-1] = [0, 0]
-        elif (1-(exit_value / entry_value)) * 100 * leverage <= 10:
-            out[len(out.keys())-1] = [.5, -.2]
-        elif (1-(exit_value / entry_value)) * 100 * leverage >= 50:
+        elif (1-(exit_value / entry_value)) * 100 * leverage <= -50:
             out[len(out.keys())-1] = [.8, -.8]
+        elif (1-(exit_value / entry_value)) * 100 * leverage <= -10:
+            out[len(out.keys())-1] = [.5, -.2]
+        elif (1-(exit_value / entry_value)) * 100 * leverage <= -1:
+            out[len(out.keys())-1] = [0, 0]
+
+#auto trains during live action
+def auto_train():
+    start = timer()
+    for b in range(1):
+        for i in range(len(out.keys())):
+            train(1, inp[i], out[i])
+            a = nn(inp[i], out[i])
+            print(a)
+    end = timer()
+    print(end-start)    
