@@ -7,7 +7,7 @@ from timeit import default_timer as timer
 from trade_options import *
 
 
-# Change later to be input
+# Loads weights, biases, and training data
 
 PI_w1 = open('w1.pickle', 'rb')
 w1 = pickle.load(PI_w1)
@@ -21,37 +21,41 @@ PI_w3 = open('w3.pickle', 'rb')
 w3 = pickle.load(PI_w3)
 PI_b3 = open('b3.pickle', 'rb')
 b3 = pickle.load(PI_b3)
-
-# use to change size of neural net before training
-'''w1 = np.zeros(shape=(50, 40))
-b1 = np.zeros(shape=(50))
-w2 = np.zeros(shape=(50, 50))
-b2 = np.zeros(shape=(50))
-w3 = np.zeros(shape=(50, 2))
-b3 = np.zeros(shape=(2))'''
-
-PO_w1 = open("w1.pickle", "wb")
-pickle.dump(w1, PO_w1)
-PO_w1.close()
-PO_b1 = open("b1.pickle", "wb")
-pickle.dump(b1, PO_b1)
-PO_b1.close()
-PO_w2 = open("w2.pickle", "wb")
-pickle.dump(w2, PO_w2)
-PO_w2.close()
-PO_b2 = open("b2.pickle", "wb")
-pickle.dump(b2, PO_b2)
-PO_b2.close()
-PO_w3 = open("w3.pickle", "wb")
-pickle.dump(w3, PO_w3)
-PO_w3.close()
-PO_b3 = open("b3.pickle", "wb")
-pickle.dump(b3, PO_b3)
-PO_b3.close()
 pickle_in = open('inputs.pickle', 'rb')
 inp = pickle.load(pickle_in)
 pickle_in2 = open('outputs.pickle', 'rb')
 out = pickle.load(pickle_in2)
+
+# Reset weights and biases to 0
+
+
+def reset_weights():
+    w1 = np.zeros(shape=(50, 40))
+    b1 = np.zeros(shape=(50))
+    w2 = np.zeros(shape=(50, 50))
+    b2 = np.zeros(shape=(50))
+    w3 = np.zeros(shape=(50, 2))
+    b3 = np.zeros(shape=(2))
+    PO_w1 = open("w1.pickle", "wb")
+    pickle.dump(w1, PO_w1)
+    PO_w1.close()
+    PO_b1 = open("b1.pickle", "wb")
+    pickle.dump(b1, PO_b1)
+    PO_b1.close()
+    PO_w2 = open("w2.pickle", "wb")
+    pickle.dump(w2, PO_w2)
+    PO_w2.close()
+    PO_b2 = open("b2.pickle", "wb")
+    pickle.dump(b2, PO_b2)
+    PO_b2.close()
+    PO_w3 = open("w3.pickle", "wb")
+    pickle.dump(w3, PO_w3)
+    PO_w3.close()
+    PO_b3 = open("b3.pickle", "wb")
+    pickle.dump(b3, PO_b3)
+    PO_b3.close()
+
+# Two activation functions for neural net
 
 
 def activation2(output):
@@ -63,9 +67,9 @@ def activation3(output):
     for n in range(0, 50):
         output[n] = (2/(1+(math.e**-(2*output[n]))))-1
 
+
 # TODO make nn function parallel
-
-
+# Calculates loss of the neural net
 def nn(X, to):
     loss = 0
     for i in range(len(inp.keys())):
@@ -80,6 +84,8 @@ def nn(X, to):
             loss = loss + loss_2x[p]
     return np.sum(loss)
 
+# Produces the output of neural net
+
 
 def output(data1):
     o1 = np.add(np.dot(w1, data1), b1)
@@ -88,6 +94,8 @@ def output(data1):
     activation2(o2)
     o3 = np.add(np.dot(o2, w3), b3)
     return o3
+
+# Train the neural net
 
 
 def train(num1, X, to):
@@ -141,6 +149,8 @@ def train(num1, X, to):
                         b3[j] = hold_b3
     save_weights()
 
+# Saves weights and biases after training
+
 
 def save_weights():
     PO_w1 = open("w1.pickle", "wb")
@@ -162,6 +172,8 @@ def save_weights():
     pickle.dump(b3, PO_b3)
     PO_b3.close()
 
+# Saves inputs and outputs of neural net
+
 
 def save_in_out(array2, array1):
     inp[len(inp.keys())] = array2
@@ -172,6 +184,8 @@ def save_in_out(array2, array1):
     pickle_out2 = open('outputs.pickle', 'wb')
     pickle.dump(out, pickle_out2)
     pickle_out2.close()
+
+# Converts webhooks into arrays for neural net to use
 
 
 def array(request_json, X):
@@ -268,20 +282,14 @@ def array(request_json, X):
 
     return X
 
-# TODO fix remove_dup so it works
-
-
-def remove_dup():
-    for i in range(len(inp.keys())):
-        for e in range(len(inp.keys())):
-            if inp[i].any == inp[e].any:
-                inp.pop(e)
-                out.pop(e)
+# delete a saved input & output in neural net
 
 
 def io_pop(num):
     out.pop(num)
     inp.pop(num)
+
+# used to define stop loss and take profit
 
 
 def holdprice(price, sl_tp):
@@ -291,6 +299,8 @@ def holdprice(price, sl_tp):
     pickle_out2 = open('heldprice.pickle', 'wb')
     pickle.dump(heldprice, pickle_out2)
     pickle_out2.close()
+
+# resets the files so that the flask server doesn't crash
 
 
 def reset():
@@ -311,6 +321,8 @@ def reset():
     pickle.dump(X, pickle_out6)
     pickle_out6.close()
 
+# deletes all saved inputs and outputs
+
 
 def reset_training_data():
     inp = {}
@@ -321,6 +333,8 @@ def reset_training_data():
     pickle_out2 = open('outputs.pickle', 'wb')
     pickle.dump(out, pickle_out2)
     pickle_out2.close()
+
+# logic for the trading bot
 
 
 def trade(X):
@@ -382,6 +396,8 @@ def trade(X):
     pickle_out3 = open('trade.pickle', 'wb')
     pickle.dump(trade, pickle_out3)
     pickle_out3.close()
+
+# automatic labeling of previous trades
 
 
 def auto_label_last():
