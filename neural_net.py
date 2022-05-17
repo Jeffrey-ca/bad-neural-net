@@ -291,6 +291,33 @@ def holdprice(price, sl_tp):
     pickle.dump(heldprice, pickle_out2)
     pickle_out2.close()
 
+def reset():
+    trade = 0
+    pos = 0
+    pickle_out4 = open('pos.pickle', 'wb')
+    pickle.dump(pos, pickle_out4)
+    pickle_out4.close()
+    pickle_out3 = open('trade.pickle', 'wb')
+    pickle.dump(trade, pickle_out3)
+    pickle_out3.close()
+    X = np.zeros(shape=40)
+    webhook = [0, 0, 0, 0, 0]
+    pickle_out5 = open('webhook.pickle', 'wb')
+    pickle.dump(webhook, pickle_out5)
+    pickle_out5.close()
+    pickle_out6 = open('X.pickle', 'wb')
+    pickle.dump(X, pickle_out6)
+    pickle_out6.close()
+
+def reset_training_data():
+    inp = {}
+    out = {}
+    pickle_out = open('inputs.pickle', 'wb')
+    pickle.dump(inp, pickle_out)
+    pickle_out.close()
+    pickle_out2 = open('outputs.pickle', 'wb')
+    pickle.dump(out, pickle_out2)
+    pickle_out2.close()
 
 def trade(X): #TODO for save_in_out add logic with magic code to automatically label previous trades as good or bad
     pickle_in3 = open('trade.pickle', 'rb')
