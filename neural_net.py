@@ -34,8 +34,8 @@ def reset_weights():
     b1 = np.zeros(shape=(50))
     w2 = np.zeros(shape=(50, 50))
     b2 = np.zeros(shape=(50))
-    w3 = np.zeros(shape=(50, 2))
-    b3 = np.zeros(shape=(2))
+    w3 = np.zeros(shape=(50, 1))
+    b3 = np.zeros(shape=(1))
     PO_w1 = open("w1.pickle", "wb")
     pickle.dump(w1, PO_w1)
     PO_w1.close()
@@ -133,7 +133,7 @@ def train(num1, X, to):
                     if abs(hold_loss_b2) < abs(loss_test_b2):
                         b2[g] = hold_b2
                 for h in range(0, 50, 1):
-                    for i in range(0, 2, 1):
+                    for i in range(0, 1, 1):
                         hold_loss_w3 = nn(X, to)
                         hold_w3 = w3[h][i]
                         w3[h][i] = random.uniform(-1.0, 1.0)
@@ -291,6 +291,8 @@ def io_pop(num):
 
 # used to define stop loss and take profit
 
+# todo maybe delete this
+
 
 def holdprice(price, sl_tp):
     price1 = price - sl_tp
@@ -302,18 +304,12 @@ def holdprice(price, sl_tp):
 
 # resets the files so that the flask server doesn't crash
 
+# webhook 0 = 1m 1 = 12m 2 = 1hr 3 = 4hr 4 = 1d 5 = position
+
 
 def reset():
-    trade = 0
-    pos = 0
-    pickle_out4 = open('pos.pickle', 'wb')
-    pickle.dump(pos, pickle_out4)
-    pickle_out4.close()
-    pickle_out3 = open('trade.pickle', 'wb')
-    pickle.dump(trade, pickle_out3)
-    pickle_out3.close()
     X = np.zeros(shape=40)
-    webhook = [0, 0, 0, 0, 0]
+    webhook = [0, 0, 0, 0, 0, 0]
     pickle_out5 = open('webhook.pickle', 'wb')
     pickle.dump(webhook, pickle_out5)
     pickle_out5.close()
@@ -337,27 +333,26 @@ def reset_training_data():
 
 # automatic labeling of previous trades
 
-
+# TODO add this to the server code to see if it fixes it
 def auto_label_last():
     last_trade = last_trade_closed()
     pnl = last_trade["result"]["data"][0]["closed_pnl"]
     long_short = last_trade["result"]["data"][0]["side"]
+    print(int(pnl*100000000))
     if long_short == "Buy":
-        if int(pnl*100000000) >= 1000:
-            out[len(out.keys())-1] = [-.8, .9]
-        elif int(pnl*100000000) < 1000 or int(pnl*100000000) > -1000:
-            out[len(out.keys())-1] = [0, 0]
-        elif int(pnl*100000000) <= -1000:
-            out[len(out.keys())-1] = [-.8, .9]
-    if long_short == "Buy":
-        if int(pnl*100000000) >= 1000:
-            out[len(out.keys())-1] = [-.8, .9]
-        elif int(pnl*100000000) < 1000 or int(pnl*100000000) > -1000:
-            out[len(out.keys())-1] = [0, 0]
-        elif int(pnl*100000000) <= -1000:
-            out[len(out.keys())-1] = [-.8, .9]
-
-
+        if int(pnl*100000000) >= 500:
+            out[len(out.keys())-1] = [-.8]
+        elif int(pnl*100000000) < 500 and int(pnl*100000000) > -500:
+            out[len(out.keys())-1] = [0]
+        elif int(pnl*100000000) <= -500:
+            out[len(out.keys())-1] = [.8]
+    if long_short == "Sell":
+        if int(pnl*100000000) >= 500:
+            out[len(out.keys())-1] = [.8]
+        elif int(pnl*100000000) < 500 and int(pnl*100000000) > -500:
+            out[len(out.keys())-1] = [0]
+        elif int(pnl*100000000) <= -500:
+            out[len(out.keys())-1] = [-.8]
 
 
 ''' pickle_out2 = open('outputs.pickle', 'wb')
@@ -376,66 +371,3 @@ def auto_train():
             print(a)
     end = timer()
     print(end-start)
-
-
-# logic for the trading bot
-
-
-def trade(X):
-    pickle_in3 = open('trade.pickle', 'rb')
-    trade = pickle.load(pickle_in3)
-    pickle_in4 = open('pos.pickle', 'rb')
-    pos = pickle.load(pickle_in4)
-    pickle_in2 = open('heldprice.pickle', 'rb')
-    heldprice = pickle.load(pickle_in2)
-    amount = 30
-    variable_sl_tp = 1000
-    amountx2 = amount * 2
-    price = X[7] * 100000
-    out = output(X)
-    if out[0] > 0.5 and out[1] < 0.5 and trade == 0:
-        long_(amount, price, variable_sl_tp)
-        pos = 1
-        trade += 1
-        save_in_out(X, output(X))
-        holdprice(price, variable_sl_tp)
-        print('This should be first trade')
-    elif out[1] > 0.5 and out[0] < 0.5 and trade == 0:
-        short(amount, price, variable_sl_tp)
-        trade -= 1
-        pos = -1
-        save_in_out(X, output(X))
-        holdprice(price, variable_sl_tp)
-        print('This should be first trade')
-    elif out[0] > 0.5 and out[1] < 0.5 and trade != 0 and pos != 1:
-        long_(amountx2, price, variable_sl_tp)
-        pos = 1
-        save_in_out(X, output(X))
-        holdprice(price, variable_sl_tp)
-        auto_label_last()
-        print('This should be after first trade')
-    elif out[1] > 0.5 and out[0] < 0.5 and trade != 0 and pos != -1:
-        short(amountx2, price, variable_sl_tp)
-        pos = -1
-        save_in_out(X, output(X))
-        holdprice(price, variable_sl_tp)
-        auto_label_last()
-        print('This should be after first trade')
-    if price < heldprice[0] and pos == 1:
-        pos = 0
-        trade = 0
-    elif price > heldprice[1] and pos == 1:
-        pos = 0
-        trade = 0
-    elif price > heldprice[1] and pos == -1:
-        pos = 0
-        trade = 0
-    elif price < heldprice[0] and pos == -1:
-        pos = 0
-        trade = 0
-    pickle_out4 = open('pos.pickle', 'wb')
-    pickle.dump(pos, pickle_out4)
-    pickle_out4.close()
-    pickle_out3 = open('trade.pickle', 'wb')
-    pickle.dump(trade, pickle_out3)
-    pickle_out3.close()
