@@ -334,6 +334,50 @@ def reset_training_data():
     pickle.dump(out, pickle_out2)
     pickle_out2.close()
 
+
+# automatic labeling of previous trades
+
+
+def auto_label_last():
+    last_trade = last_trade_closed()
+    pnl = last_trade["result"]["data"][0]["closed_pnl"]
+    long_short = last_trade["result"]["data"][0]["side"]
+    if long_short == "Buy":
+        if int(pnl*100000000) >= 1000:
+            out[len(out.keys())-1] = [-.8, .9]
+        elif int(pnl*100000000) < 1000 or int(pnl*100000000) > -1000:
+            out[len(out.keys())-1] = [0, 0]
+        elif int(pnl*100000000) <= -1000:
+            out[len(out.keys())-1] = [-.8, .9]
+    if long_short == "Buy":
+        if int(pnl*100000000) >= 1000:
+            out[len(out.keys())-1] = [-.8, .9]
+        elif int(pnl*100000000) < 1000 or int(pnl*100000000) > -1000:
+            out[len(out.keys())-1] = [0, 0]
+        elif int(pnl*100000000) <= -1000:
+            out[len(out.keys())-1] = [-.8, .9]
+
+
+
+
+''' pickle_out2 = open('outputs.pickle', 'wb')
+    pickle.dump(out, pickle_out2)
+    pickle_out2.close()'''
+
+# auto trains during live action
+
+
+def auto_train():
+    start = timer()
+    for b in range(1):
+        for i in range(len(out.keys())):
+            train(1, inp[i], out[i])
+            a = nn(inp[i], out[i])
+            print(a)
+    end = timer()
+    print(end-start)
+
+
 # logic for the trading bot
 
 
@@ -369,26 +413,24 @@ def trade(X):
         save_in_out(X, output(X))
         holdprice(price, variable_sl_tp)
         auto_label_last()
-        auto_train()
         print('This should be after first trade')
     elif out[1] > 0.5 and out[0] < 0.5 and trade != 0 and pos != -1:
         short(amountx2, price, variable_sl_tp)
         pos = -1
         save_in_out(X, output(X))
         holdprice(price, variable_sl_tp)
-        auto_label_last() 
-        auto_train()
+        auto_label_last()
         print('This should be after first trade')
     if price < heldprice[0] and pos == 1:
         pos = 0
         trade = 0
-    if price > heldprice[1] and pos == 1:
+    elif price > heldprice[1] and pos == 1:
         pos = 0
         trade = 0
-    if price > heldprice[1] and pos == -1:
+    elif price > heldprice[1] and pos == -1:
         pos = 0
         trade = 0
-    if price < heldprice[0] and pos == -1:
+    elif price < heldprice[0] and pos == -1:
         pos = 0
         trade = 0
     pickle_out4 = open('pos.pickle', 'wb')
@@ -397,51 +439,3 @@ def trade(X):
     pickle_out3 = open('trade.pickle', 'wb')
     pickle.dump(trade, pickle_out3)
     pickle_out3.close()
-
-# automatic labeling of previous trades
-
-
-def auto_label_last():
-    last_trade = last_trade_closed()
-    pnl = last_trade["result"]["data"][0]["closed_pnl"]
-    long_short = last_trade["result"]["data"][0]["side"]
-    entry_value = last_trade["result"]["data"][0]["avg_entry_price"]
-    exit_value = last_trade["result"]["data"][0]["avg_exit_price"]
-    leverage = last_trade["result"]["data"][0]["leverage"]
-    if long_short == "Buy":
-        if ((exit_value / entry_value)-1) * 100 * leverage >= 50:
-            out[len(out.keys())-1] = [-.8, 1]
-        elif ((exit_value / entry_value)-1) * 100 * leverage >= 10:
-            out[len(out.keys())-1] = [-.2, .5]
-        elif ((exit_value / entry_value)-1) * 100 * leverage >= 1:
-            out[len(out.keys())-1] = [0, 0]
-        elif ((exit_value / entry_value)-1) * 100 * leverage <= -50:
-            out[len(out.keys())-1] = [.8, -1]
-        elif ((exit_value / entry_value)-1) * 100 * leverage <= -10:
-            out[len(out.keys())-1] = [.5, -.2]
-        elif ((exit_value / entry_value)-1) * 100 * leverage <= -1:
-            out[len(out.keys())-1] = [0, 0]
-    if long_short == "Sell":
-        if (1-(exit_value / entry_value)) * 100 * leverage >= 50:
-            out[len(out.keys())-1] = [-.8, .8]
-        elif (1-(exit_value / entry_value)) * 100 * leverage >= 10:
-            out[len(out.keys())-1] = [-.2, .5]
-        elif (1-(exit_value / entry_value)) * 100 * leverage >= 1:
-            out[len(out.keys())-1] = [0, 0]
-        elif (1-(exit_value / entry_value)) * 100 * leverage <= -50:
-            out[len(out.keys())-1] = [.8, -.8]
-        elif (1-(exit_value / entry_value)) * 100 * leverage <= -10:
-            out[len(out.keys())-1] = [.5, -.2]
-        elif (1-(exit_value / entry_value)) * 100 * leverage <= -1:
-            out[len(out.keys())-1] = [0, 0]
-
-#auto trains during live action
-def auto_train():
-    start = timer()
-    for b in range(1):
-        for i in range(len(out.keys())):
-            train(1, inp[i], out[i])
-            a = nn(inp[i], out[i])
-            print(a)
-    end = timer()
-    print(end-start)    

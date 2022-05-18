@@ -4,8 +4,6 @@ from neural_net import *
 from flask_ngrok import run_with_ngrok
 import json
 
-reset()
-holdprice(30450, 1100)
 
 app = Flask(__name__)
 run_with_ngrok(app)
