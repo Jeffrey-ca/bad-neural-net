@@ -15,7 +15,7 @@ for i in range(len(out.keys())):
 end = timer()
 print(end-start)'''
 
-'''pickle_in5 = open('webhook.pickle', 'rb')
+pickle_in5 = open('webhook.pickle', 'rb')
 webhook = pickle.load(pickle_in5)
 pickle_in6 = open('X.pickle', 'rb')
 X = pickle.load(pickle_in6)
@@ -39,6 +39,7 @@ pickle.dump(webhook, pickle_out5)
 pickle_out5.close()
 pickle_out6 = open('X.pickle', 'wb')
 pickle.dump(X, pickle_out6)
-pickle_out6.close()'''
+pickle_out6.close()
 print(inp)
 print(out)
+print(len(inp.keys()))

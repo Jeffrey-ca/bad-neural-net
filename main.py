@@ -18,6 +18,7 @@ def webhook():
             pickle_in6 = open('X.pickle', 'rb')
             X = pickle.load(pickle_in6)
             request_json = request.json
+            auto_label_last()
             if request_json["alert"] == '1m' and webhook[0] == 0:
                 X = array(request_json, X)
                 webhook[0] = 1

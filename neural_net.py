@@ -343,26 +343,26 @@ def auto_label_last():
         print(int(pnl*100000000))
         if long_short == "Buy":
             if int(pnl*100000000) > 1000:
-                out[len(inp.keys())] = [-.8]
+                out[len(inp.keys())-1] = [-.8]
             elif int(pnl*100000000) <= 1000 and int(pnl*100000000) >= 250:
-                out[len(inp.keys())] = [-.5]
+                out[len(inp.keys())-1] = [-.5]
             elif int(pnl*100000000) < 250 and int(pnl*100000000) > -250:
-                out[len(inp.keys())] = [0]
+                out[len(inp.keys())-1] = [0]
             elif int(pnl*100000000) <= -250 and int(pnl*100000000) >= -1000:
-                out[len(inp.keys())] = [.5]
+                out[len(inp.keys())-1] = [.5]
             elif int(pnl*100000000) < -1000:
-                out[len(inp.keys())] = [.8]
+                out[len(inp.keys())-1] = [.8]
         if long_short == "Sell":
             if int(pnl*100000000) > 1000:
-                out[len(inp.keys())] = [.8]
+                out[len(inp.keys())-1] = [.8]
             elif int(pnl*100000000) >= 250 and int(pnl*100000000) <= 1000:
-                out[len(inp.keys())] = [.5]
+                out[len(inp.keys())-1] = [.5]
             elif int(pnl*100000000) < 250 and int(pnl*100000000) > -250:
-                out[len(inp.keys())] = [0]
+                out[len(inp.keys())-1] = [0]
             elif int(pnl*100000000) <= -250 and int(pnl*100000000) >= -1000:
-                out[len(inp.keys())] = [-.5]
+                out[len(inp.keys())-1] = [-.5]
             elif int(pnl*100000000) < -1000:
-                out[len(inp.keys())] = [-.8]
+                out[len(inp.keys())-1] = [-.8]
 
 
 # auto trains during live action
