@@ -18,6 +18,7 @@ def webhook():
         X = pickle.load(pickle_in6)
         pickle_in2 = open('heldprice.pickle', 'rb')
         request_json = request.json
+        auto_label_last()
         if request_json["alert"] == '1m' and webhook[0] == 0:
             X = array(request_json, X)
             webhook[0] = 1
@@ -58,13 +59,13 @@ def webhook():
             elif out[0] <= -.5 and webhook[5] == 1:
                 short(amount * 2, price)
                 webhook[5] = -1
-                save_in_out(X, output(X))
                 auto_label_last() 
+                save_in_out(X, output(X))
             elif out[0] >= .5 and webhook[5] == -1:
                 long_(amount * 2, price)
                 webhook[5] = 1
-                save_in_out(X, output(X))
                 auto_label_last() 
+                save_in_out(X, output(X))
             elif out[0] < .5 and out[0] > -.5:
                 if webhook[5] == 1:
                     webhook[5] = 0

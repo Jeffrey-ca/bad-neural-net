@@ -340,18 +340,18 @@ def auto_label_last():
     long_short = last_trade["result"]["data"][0]["side"]
     print(int(pnl*100000000))
     if long_short == "Buy":
-        if int(pnl*100000000) >= 500:
+        if int(pnl*100000000) >= 250:
             out[len(out.keys())-1] = [-.8]
-        elif int(pnl*100000000) < 500 and int(pnl*100000000) > -500:
+        elif int(pnl*100000000) < 250 and int(pnl*100000000) > -250:
             out[len(out.keys())-1] = [0]
-        elif int(pnl*100000000) <= -500:
+        elif int(pnl*100000000) <= -250:
             out[len(out.keys())-1] = [.8]
     if long_short == "Sell":
-        if int(pnl*100000000) >= 500:
+        if int(pnl*100000000) >= 250:
             out[len(out.keys())-1] = [.8]
-        elif int(pnl*100000000) < 500 and int(pnl*100000000) > -500:
+        elif int(pnl*100000000) < 250 and int(pnl*100000000) > -250:
             out[len(out.keys())-1] = [0]
-        elif int(pnl*100000000) <= -500:
+        elif int(pnl*100000000) <= -250:
             out[len(out.keys())-1] = [-.8]
 
 
