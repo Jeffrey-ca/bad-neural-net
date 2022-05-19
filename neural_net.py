@@ -175,12 +175,13 @@ def save_weights():
 # Saves inputs and outputs of neural net
 
 
-def save_in_out(array2, array1):
+def save_in_out(array2):
     inp[len(inp.keys())] = array2
     pickle_out = open('inputs.pickle', 'wb')
     pickle.dump(inp, pickle_out)
     pickle_out.close()
-    out[len(out.keys())] = array1
+    out_default = [0]
+    out[len(inp.keys())-1] = out_default
     pickle_out2 = open('outputs.pickle', 'wb')
     pickle.dump(out, pickle_out2)
     pickle_out2.close()
@@ -322,7 +323,7 @@ def reset():
 
 def reset_training_data():
     inp = {}
-    out = {}
+    out = {-1: [0]}
     pickle_out = open('inputs.pickle', 'wb')
     pickle.dump(inp, pickle_out)
     pickle_out.close()
@@ -333,31 +334,36 @@ def reset_training_data():
 
 # automatic labeling of previous trades
 
-# TODO add this to the server code to see if it fixes it
+# TODO add more assignments of values for more dynamic training .5, .3, 1
 def auto_label_last():
-    last_trade = last_trade_closed()
-    pnl = last_trade["result"]["data"][0]["closed_pnl"]
-    long_short = last_trade["result"]["data"][0]["side"]
-    print(int(pnl*100000000))
-    if long_short == "Buy":
-        if int(pnl*100000000) >= 250:
-            out[len(out.keys())-1] = [-.8]
-        elif int(pnl*100000000) < 250 and int(pnl*100000000) > -250:
-            out[len(out.keys())-1] = [0]
-        elif int(pnl*100000000) <= -250:
-            out[len(out.keys())-1] = [.8]
-    if long_short == "Sell":
-        if int(pnl*100000000) >= 250:
-            out[len(out.keys())-1] = [.8]
-        elif int(pnl*100000000) < 250 and int(pnl*100000000) > -250:
-            out[len(out.keys())-1] = [0]
-        elif int(pnl*100000000) <= -250:
-            out[len(out.keys())-1] = [-.8]
+    if len(inp.keys()):
+        last_trade = last_trade_closed()
+        pnl = last_trade["result"]["data"][0]["closed_pnl"]
+        long_short = last_trade["result"]["data"][0]["side"]
+        print(int(pnl*100000000))
+        if long_short == "Buy":
+            if int(pnl*100000000) > 1000:
+                out[len(inp.keys())] = [-.8]
+            elif int(pnl*100000000) <= 1000 and int(pnl*100000000) >= 250:
+                out[len(inp.keys())] = [-.5]
+            elif int(pnl*100000000) < 250 and int(pnl*100000000) > -250:
+                out[len(inp.keys())] = [0]
+            elif int(pnl*100000000) <= -250 and int(pnl*100000000) >= -1000:
+                out[len(inp.keys())] = [.5]
+            elif int(pnl*100000000) < -1000:
+                out[len(inp.keys())] = [.8]
+        if long_short == "Sell":
+            if int(pnl*100000000) > 1000:
+                out[len(inp.keys())] = [.8]
+            elif int(pnl*100000000) >= 250 and int(pnl*100000000) <= 1000:
+                out[len(inp.keys())] = [.5]
+            elif int(pnl*100000000) < 250 and int(pnl*100000000) > -250:
+                out[len(inp.keys())] = [0]
+            elif int(pnl*100000000) <= -250 and int(pnl*100000000) >= -1000:
+                out[len(inp.keys())] = [-.5]
+            elif int(pnl*100000000) < -1000:
+                out[len(inp.keys())] = [-.8]
 
-
-''' pickle_out2 = open('outputs.pickle', 'wb')
-    pickle.dump(out, pickle_out2)
-    pickle_out2.close()'''
 
 # auto trains during live action
 
@@ -365,7 +371,7 @@ def auto_label_last():
 def auto_train():
     start = timer()
     for b in range(1):
-        for i in range(len(out.keys())):
+        for i in range(len(inp.keys())):
             train(1, inp[i], out[i])
             a = nn(inp[i], out[i])
             print(a)

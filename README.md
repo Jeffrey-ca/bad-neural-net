@@ -5,3 +5,5 @@ I want to try and make this neural net make trades and see the funny happen
 run main.py in cmd
 ???
 profit
+
+always leave one item in output array!!! leave as -1
