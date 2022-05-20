@@ -17,7 +17,6 @@ def long_(amount, price):
         qty=amount,
         time_in_force="GoodTillCancel"
     )
-    print('long')
 
 
 def short(amount, price):
@@ -29,7 +28,12 @@ def short(amount, price):
         qty=amount,
         time_in_force="GoodTillCancel"
     )
-    print('short')
+
+
+def position_info():
+    session.my_position(
+        symbol="BTCUSD"
+    )
 
 
 def last_trade_closed():

@@ -1,9 +1,8 @@
 from neural_net import *
-import pickle
 
 
 # this trains neural net
-'''start = timer()
+start = timer()
 for b in range(26):
     for i in range(len(inp.keys())):
         train(1, inp[i], out[i])
@@ -14,53 +13,51 @@ for i in range(len(inp.keys())):
     print(i, out[i])
 end = timer()
 print(end-start)
-# 0.044341453055449905 --> 0.043935007658902896 ended at 38'''
+# 0.044341453055449905 --> 0.043935007658902896 ended at 38
 
-'''pickle_in5 = open('webhook.pickle', 'rb')
-webhook = pickle.load(pickle_in5)
-pickle_in6 = open('X.pickle', 'rb')
-X = pickle.load(pickle_in6)
-pickle_in = open('inputs.pickle', 'rb')
-inp = pickle.load(pickle_in)
-pickle_in2 = open('outputs.pickle', 'rb')
-out = pickle.load(pickle_in2)
 
-out[10] = [0]
-out[14] = [.8]
-out[24] = [-.5]
-out[25] = [-.8]
-out[26] = [-.8]
-out[28] = [-.8]
-out[29] = [-.8]
-out[30] = [-.8]
-out[31] = [-.8]
-out[32] = [-.8]
-out[33] = [-.8]
-out[35] = [-.8]
-out[36] = [-.8]
-out[38] = [-.8]
-out.pop(39)
-inp.pop(39)
-out.pop(40)
-inp.pop(40)
-out.pop(41)
-inp.pop(41)
-out.pop(42)
-inp.pop(42)
-
-pickle_out = open('inputs.pickle', 'wb')
-pickle.dump(inp, pickle_out)
-pickle_out.close()
-pickle_out2 = open('outputs.pickle', 'wb')
-pickle.dump(out, pickle_out2)
-pickle_out2.close()
-X = np.zeros(shape=40)
-webhook = [0, 0, 0, 0, 0, 0]
+# reset information
+'''X = np.zeros(shape=40)
+webhook = [0, 0, 0, 0, 0]
 pickle_out5 = open('webhook.pickle', 'wb')
 pickle.dump(webhook, pickle_out5)
 pickle_out5.close()
 pickle_out6 = open('X.pickle', 'wb')
 pickle.dump(X, pickle_out6)
-pickle_out6.close()'''
+pickle_out6.close()
+inp = {}
+out = {}
+pickle_out = open('inputs.pickle', 'wb')
+pickle.dump(inp, pickle_out)
+pickle_out.close()
+pickle_out2 = open('outputs.pickle', 'wb')
+pickle.dump(out, pickle_out2)
+pickle_out2.close()'''
 
-print(out)
+
+# reset neural net weights and biases
+'''w1 = np.zeros(shape=(100, 40))
+b1 = np.zeros(shape=(100))
+w2 = np.zeros(shape=(100, 100))
+b2 = np.zeros(shape=(100))
+w3 = np.zeros(shape=(100, 1))
+b3 = np.zeros(shape=(1))
+PO_w1 = open("w1.pickle", "wb")
+pickle.dump(w1, PO_w1)
+PO_w1.close()
+PO_b1 = open("b1.pickle", "wb")
+pickle.dump(b1, PO_b1)
+PO_b1.close()
+PO_w2 = open("w2.pickle", "wb")
+pickle.dump(w2, PO_w2)
+PO_w2.close()
+PO_b2 = open("b2.pickle", "wb")
+pickle.dump(b2, PO_b2)
+PO_b2.close()
+PO_w3 = open("w3.pickle", "wb")
+pickle.dump(w3, PO_w3)
+PO_w3.close()
+PO_b3 = open("b3.pickle", "wb")
+pickle.dump(b3, PO_b3)
+PO_b3.close()
+'''
