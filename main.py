@@ -1,8 +1,7 @@
 from flask import Flask, request, abort
-from trade_options import *
+from trading_def import *
 from neural_net import *
 from flask_ngrok import run_with_ngrok
-import json
 import time
 
 

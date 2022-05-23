@@ -2,7 +2,7 @@ from neural_net import *
 
 
 # this trains neural net
-start = timer()
+'''start = timer()
 for b in range(1):
     for i in range(len(inp.keys())):
         train(1, inp[i], out[i])
@@ -12,7 +12,15 @@ for i in range(len(inp.keys())):
     print(i, output(inp[i]))
     print(i, out[i])
 end = timer()
-print(end-start)
+print(end-start)'''
+
+'''start = timer()
+train(1, inp[1], out[1])
+for i in range(len(inp.keys())):
+    print(i, output(inp[i]))
+    print(i, out[i])
+end = timer()
+print(end-start)'''
 # 0.044341453055449905 --> 0.043935007658902896 ended at 38 with 50 neurons 20 minutes
 
 # reset information
@@ -58,3 +66,7 @@ PO_w3.close()
 PO_b3 = open("b3.pickle", "wb")
 pickle.dump(b3, PO_b3)
 PO_b3.close()'''
+print(len(w1))
+print(len(w1[0]))
+print(len(b1))
+print(b1)
