@@ -68,7 +68,7 @@ def activation3(output):
 
 # TODO make nn function parallel
 # Calculates loss of the neural net
-def nn(a, b):
+'''def nn(a, b):
     loss = 0
     for i in range(len(inp.keys())):
         o3 = loss_math(inp[i])
@@ -76,6 +76,7 @@ def nn(a, b):
         loss_2x = np.square(loss_array)
         for p in range(len(loss_2x)):
             loss = abs(loss) + abs(loss_2x[p])
+    print(loss)
     return np.sum(loss)
                                     
 
@@ -88,10 +89,10 @@ def loss_math(X):
     for a in range(0, 100):
         o2[a] = 1/(1+(math.e**-(o2[a])))
     o3 = np.add(np.dot(o2, w3), b3)
-    return o3
+    return o3'''
 
 
-'''def nn(x, to):
+def nn(x, to):
     loss = 0
     for i in range(len(inp.keys())):
         o1 = np.add(np.dot(w1, inp[i]), b1)
@@ -103,13 +104,12 @@ def loss_math(X):
         loss_2x = np.square(loss_array)
         for p in range(len(loss_2x)):
             loss = abs(loss) + abs(loss_2x[p])
-    return np.sum(loss)'''
+    return np.sum(loss)
 
 
 # Produces the output of neural net
 
 
-@jit(nopython=True, parallel=True)
 def output(X):
     o1 = np.add(np.dot(w1, X), b1)
     for n in range(0, 100):
@@ -123,7 +123,7 @@ def output(X):
 
 # Train the neural net
 
-@jit(nopython=True, parallel=True)
+
 def train(num1, X, to):
     for x in range(0, num1, 1):
         for c in range(0, 100):
