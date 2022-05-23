@@ -14,13 +14,13 @@ for i in range(len(inp.keys())):
 end = timer()
 print(end-start)'''
 
-'''start = timer()
+start = timer()
 train(1, inp[1], out[1])
 for i in range(len(inp.keys())):
     print(i, output(inp[i]))
     print(i, out[i])
 end = timer()
-print(end-start)'''
+print(end-start)
 # 0.044341453055449905 --> 0.043935007658902896 ended at 38 with 50 neurons 20 minutes
 
 # reset information
@@ -42,12 +42,34 @@ pickle.dump(out, pickle_out2)
 pickle_out2.close()
 print(out)'''
 # reset neural net weights and biases
-'''w1 = np.zeros(shape=(100, 40))
-b1 = np.zeros(shape=(100))
-w2 = np.zeros(shape=(100, 100))
-b2 = np.zeros(shape=(100))
-w3 = np.zeros(shape=(100, 1))
-b3 = np.zeros(shape=(1))
+'''w1 = np.zeros(shape=(75, 40))
+for a in range(len(w1)):
+    for b in range(len(w1[a])):
+        w1[a][b] = random.uniform(-1.0, 1.0)
+b1 = np.zeros(shape=(75))
+for i in range(len(b1)):
+    b1[i] = random.uniform(-1.0, 1.0)
+w2 = np.zeros(shape=(50, 75))
+for a in range(len(w2)):
+    for b in range(len(w2[a])):
+        w2[a][b] = random.uniform(-1.0, 1.0)
+b2 = np.zeros(shape=(50))
+for i in range(len(b2)):
+    b2[i] = random.uniform(-1.0, 1.0)
+w3 = np.zeros(shape=(25, 50))
+for a in range(len(w3)):
+    for b in range(len(w3[a])):
+        w3[a][b] = random.uniform(-1.0, 1.0)
+b3 = np.zeros(shape=(25))
+for i in range(len(b3)):
+    b3[i] = random.uniform(-1.0, 1.0)
+w4 = np.zeros(shape=(1, 25))
+for a in range(len(w4)):
+    for b in range(len(w4[a])):
+        w4[a][b] = random.uniform(-1.0, 1.0)
+b4 = np.zeros(shape=(25))
+for i in range(len(b4)):
+    b4[i] = random.uniform(-1.0, 1.0)
 PO_w1 = open("w1.pickle", "wb")
 pickle.dump(w1, PO_w1)
 PO_w1.close()
@@ -65,8 +87,10 @@ pickle.dump(w3, PO_w3)
 PO_w3.close()
 PO_b3 = open("b3.pickle", "wb")
 pickle.dump(b3, PO_b3)
-PO_b3.close()'''
-print(len(w1))
-print(len(w1[0]))
-print(len(b1))
-print(b1)
+PO_b3.close()
+PO_w4 = open("w4.pickle", "wb")
+pickle.dump(w4, PO_w4)
+PO_w4.close()
+PO_b4 = open("b4.pickle", "wb")
+pickle.dump(b4, PO_b4)
+PO_b4.close()'''

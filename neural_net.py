@@ -32,16 +32,21 @@ out = pickle.load(pickle_in2)
 
 # Two activation functions for neural net
 def activation2(output):
-    for n in range(0, 100):
+    for n in range(0, len(output)):
         output[n] = 1/(1+(math.e**-(output[n])))
+    return output
 
 
 def activation3(output):
-    for n in range(0, 100):
+    for n in range(0, len(output)):
         output[n] = (2/(1+(math.e**-(2*output[n]))))-1
+    return output
+
 
 def activation(output):
-    return max(0.0, output)
+    for i in range(len(output)):
+        output[i] = output[i]/abs(np.sum(output))
+    return output
 
 
 # TODO make nn function parallel
@@ -50,27 +55,28 @@ def nn(x, to):
     loss = 0
     for i in range(len(inp.keys())):
         o1 = np.add(np.dot(w1, inp[i]), b1)
-        activation3(o1)
+        o1 = activation(o1)
         o2 = np.add(np.dot(w2, o1), b2)
-        activation2(o2)
+        o2 = activation3(o2)
         o3 = np.add(np.dot(w3, o2), b3)
-        activation(o3)
+        o3 = activation2(o3)
         o4 = np.add(np.dot(w4, o3), b4)
         loss_array = abs(np.subtract(o4, out[i]))
         loss_2x = np.square(loss_array)
         for p in range(len(loss_2x)):
             loss = abs(loss) + abs(loss_2x[p])
+    print(loss)
     return np.sum(loss)
 
 
 # Produces the output of neural net
 def output(X):
     o1 = np.add(np.dot(w1, X), b1)
-    activation3(o1)
+    o1 = activation(o1)
     o2 = np.add(np.dot(w2, o1), b2)
-    activation2(o2)
+    o2 = activation3(o2)
     o3 = np.add(np.dot(w3, o2), b3)
-    activation(o3)
+    o3 = activation2(o3)
     o4 = np.add(np.dot(w4, o3), b4)
     return o4
 
