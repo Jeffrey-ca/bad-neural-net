@@ -65,7 +65,6 @@ def nn(x, to):
         loss_2x = np.square(loss_array)
         for p in range(len(loss_2x)):
             loss = abs(loss) + abs(loss_2x[p])
-    print(loss)
     return np.sum(loss)
 
 
@@ -92,6 +91,8 @@ def train(num1, X, to):
                 loss_test_w1 = nn(X, to)
                 if abs(hold_loss_w1) < abs(loss_test_w1):
                     w1[c][b] = hold_w1
+                else:
+                    print(loss_test_w1)
         for d in range(0, len(b1)):
             hold_loss_b1 = nn(X, to)
             hold_b1 = b1[d]
@@ -99,6 +100,8 @@ def train(num1, X, to):
             loss_test_b1 = nn(X, to)
             if abs(hold_loss_b1) < abs(loss_test_b1):
                 b1[d] = hold_b1
+            else:
+                print(loss_test_b1)
         for e in range(0, len(w2)):
             for f in range(0, len(w2[0])):
                 hold_loss_w2 = nn(X, to)
@@ -107,6 +110,8 @@ def train(num1, X, to):
                 loss_test_w2 = nn(X, to)
                 if abs(hold_loss_w2) < abs(loss_test_w2):
                     w2[e][f] = hold_w2
+                else:
+                    print(loss_test_w2)
         for g in range(0, len(b2)):
             hold_loss_b2 = nn(X, to)
             hold_b2 = b2[g]
@@ -114,6 +119,8 @@ def train(num1, X, to):
             loss_test_b2 = nn(X, to)
             if abs(hold_loss_b2) < abs(loss_test_b2):
                 b2[g] = hold_b2
+            else:
+                print(loss_test_b2)
         for e in range(0, len(w3)):
             for f in range(0, len(w3[0])):
                 hold_loss_w3 = nn(X, to)
@@ -122,6 +129,8 @@ def train(num1, X, to):
                 loss_test_w3 = nn(X, to)
                 if abs(hold_loss_w3) < abs(loss_test_w3):
                     w3[e][f] = hold_w3
+                else:
+                    print(loss_test_w3)
         for g in range(0, len(b3)):
             hold_loss_b3 = nn(X, to)
             hold_b3 = b3[g]
@@ -129,6 +138,8 @@ def train(num1, X, to):
             loss_test_b3 = nn(X, to)
             if abs(hold_loss_b3) < abs(loss_test_b3):
                 b3[g] = hold_b3
+            else:
+                print(loss_test_b3)
         for h in range(0, len(w4)):
             for i in range(0, len(w4[0])):
                 hold_loss_w4 = nn(X, to)
@@ -137,6 +148,8 @@ def train(num1, X, to):
                 loss_test_w4 = nn(X, to)
                 if abs(hold_loss_w4) < abs(loss_test_w4):
                     w4[h][i] = hold_w4
+                else:
+                    print(loss_test_w4)
         for j in range(0, len(b4)):
             hold_loss_b4 = nn(X, to)
             hold_b4 = b4[j]
@@ -144,6 +157,8 @@ def train(num1, X, to):
             loss_test_b4 = nn(X, to)
             if abs(hold_loss_b4) < abs(loss_test_b4):
                 b4[j] = hold_b4
+            else:
+                print(loss_test_b4)
     PO_w1 = open("w1.pickle", "wb")
     pickle.dump(w1, PO_w1)
     PO_w1.close()

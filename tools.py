@@ -1,5 +1,5 @@
 from neural_net import *
-
+from trading_def import *
 
 # this trains neural net
 '''start = timer()
@@ -14,13 +14,7 @@ for i in range(len(inp.keys())):
 end = timer()
 print(end-start)'''
 
-start = timer()
-train(1, inp[1], out[1])
-for i in range(len(inp.keys())):
-    print(i, output(inp[i]))
-    print(i, out[i])
-end = timer()
-print(end-start)
+
 # 0.044341453055449905 --> 0.043935007658902896 ended at 38 with 50 neurons 20 minutes
 
 # reset information
@@ -33,14 +27,14 @@ pickle_out6 = open('X.pickle', 'wb')
 pickle.dump(X, pickle_out6)
 pickle_out6.close()
 inp = {}
-out = {}'''
-'''pickle_out = open('inputs.pickle', 'wb')
+out = {}
+pickle_out = open('inputs.pickle', 'wb')
 pickle.dump(inp, pickle_out)
 pickle_out.close()
 pickle_out2 = open('outputs.pickle', 'wb')
 pickle.dump(out, pickle_out2)
 pickle_out2.close()
-print(out)'''
+print(inp)'''
 # reset neural net weights and biases
 '''w1 = np.zeros(shape=(75, 40))
 for a in range(len(w1)):
@@ -67,7 +61,7 @@ w4 = np.zeros(shape=(1, 25))
 for a in range(len(w4)):
     for b in range(len(w4[a])):
         w4[a][b] = random.uniform(-1.0, 1.0)
-b4 = np.zeros(shape=(25))
+b4 = np.zeros(shape=(1))
 for i in range(len(b4)):
     b4[i] = random.uniform(-1.0, 1.0)
 PO_w1 = open("w1.pickle", "wb")
@@ -93,4 +87,41 @@ pickle.dump(w4, PO_w4)
 PO_w4.close()
 PO_b4 = open("b4.pickle", "wb")
 pickle.dump(b4, PO_b4)
-PO_b4.close()'''
+PO_b4.close()
+'''
+'''train(1, inp[1], out[1])'''
+
+'''def activation(output):
+    neg = np.zeros(shape=(len(output)))
+    for i in range(len(output)):
+        if output [i] < 0:
+            neg[i] = -1
+            output[i] = output[i] * -1
+        elif output[i] >= 0:
+            neg[i] = 1
+        output[i] = output[i]/(np.sum(output))
+    for i in range(len(output)):
+        output[i] = output[i] * neg[i]
+    return output
+
+def activation(output):
+    neg = np.zeros(shape=(len(output)))
+    for i in range(len(output)):
+        if output [i] < 0:
+            neg[i] = -1
+            output[i] = output[i] * -1
+        elif output[i] >= 0:
+            neg[i] = 1
+        output[i] = output[i]/(np.sum(output))
+    for i in range(len(output)):
+        output[i] = output[i] * neg[i]
+    return output'''
+
+start = timer()
+train(5, inp[1], out[1])
+print(nn(inp[1], out[1]))
+for i in range(len(inp.keys())):
+    print(i, output(inp[i]))
+    print(i, out[i])
+end = timer()
+print(end-start)

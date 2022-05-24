@@ -1,5 +1,5 @@
 from pybit import HTTP
-from neural_net import inp, out
+from neural_net import *
 import pickle
 
 # add api keys to this
@@ -31,9 +31,7 @@ def short(amount, price):
 
 
 def position_info():
-    session.my_position(
-        symbol="BTCUSD"
-    )
+    return (session.my_position(symbol="BTCUSD"))
 
 
 def last_trade_closed():
