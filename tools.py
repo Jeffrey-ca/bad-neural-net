@@ -118,10 +118,14 @@ def activation(output):
     return output'''
 
 start = timer()
-train(5, inp[1], out[1])
+train(4, inp[1], out[1])
 print(nn(inp[1], out[1]))
 for i in range(len(inp.keys())):
     print(i, output(inp[i]))
     print(i, out[i])
 end = timer()
 print(end-start)
+
+#8.255567082031298
+#0.1599504276223469
+#todo write code to invert all outputs. 

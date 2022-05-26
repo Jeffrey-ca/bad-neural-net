@@ -52,31 +52,31 @@ def webhook():
             else:
                 position = positioninfo["result"]["side"]
             if str(position) == 'None':
-                if outpu[0] >= .5:
+                if outpu[0] >= .45:
                     long_(amount, price)
                     save_in_out(X)
-                elif outpu[0] <= -.5:
+                elif outpu[0] <= -.45:
                     short(amount, price)
                     save_in_out(X)
             elif position == 'Buy':
-                if outpu[0] <= -.05:
+                if outpu[0] <= -.45:
                     short(amount * 2, price)
                     time.sleep(1)
                     auto_label_last()
                     time.sleep(1)
                     save_in_out(X)
-                elif outpu[0] < .5 and outpu[0] > -.5:
+                elif outpu[0] < .45 and outpu[0] > -.45:
                     short(amount, price)
                     time.sleep(1)
                     auto_label_last()
             elif position == 'Sell':
-                if outpu[0] >= .05:
+                if outpu[0] >= .45:
                     long_(amount * 2, price)
                     time.sleep(1)
                     auto_label_last()
                     time.sleep(1)
                     save_in_out(X)
-                elif outpu[0] < .5 and outpu[0] > -.5:
+                elif outpu[0] < .45 and outpu[0] > -.45:
                     long_(amount, price)
                     time.sleep(1)
                     auto_label_last()

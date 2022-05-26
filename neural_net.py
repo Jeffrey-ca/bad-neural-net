@@ -53,7 +53,7 @@ def activation(output):
 # Calculates loss of the neural net
 def nn(x, to):
     loss = 0
-    for i in range(len(inp.keys())):
+    for i in range(0, len(inp.keys()) -1):
         o1 = np.add(np.dot(w1, inp[i]), b1)
         o1 = activation(o1)
         o2 = np.add(np.dot(w2, o1), b2)
