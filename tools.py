@@ -36,34 +36,32 @@ pickle.dump(out, pickle_out2)
 pickle_out2.close()
 print(inp)'''
 # reset neural net weights and biases
-'''w1 = np.zeros(shape=(75, 40))
+'''w1 = np.zeros(shape=(100, 40))
 for a in range(len(w1)):
     for b in range(len(w1[a])):
         w1[a][b] = random.uniform(-1.0, 1.0)
-b1 = np.zeros(shape=(75))
+b1 = np.zeros(shape=(100))
 for i in range(len(b1)):
     b1[i] = random.uniform(-1.0, 1.0)
-w2 = np.zeros(shape=(50, 75))
+w2 = np.zeros(shape=(75, 100))
 for a in range(len(w2)):
     for b in range(len(w2[a])):
         w2[a][b] = random.uniform(-1.0, 1.0)
-b2 = np.zeros(shape=(50))
+b2 = np.zeros(shape=(75))
 for i in range(len(b2)):
     b2[i] = random.uniform(-1.0, 1.0)
-w3 = np.zeros(shape=(25, 50))
+w3 = np.zeros(shape=(50,75))
 for a in range(len(w3)):
     for b in range(len(w3[a])):
         w3[a][b] = random.uniform(-1.0, 1.0)
-b3 = np.zeros(shape=(25))
+b3 = np.zeros(shape=(50))
 for i in range(len(b3)):
     b3[i] = random.uniform(-1.0, 1.0)
-w4 = np.zeros(shape=(1, 25))
+w4 = np.zeros(shape=(1, 50))
 for a in range(len(w4)):
     for b in range(len(w4[a])):
         w4[a][b] = random.uniform(-1.0, 1.0)
 b4 = np.zeros(shape=(1))
-for i in range(len(b4)):
-    b4[i] = random.uniform(-1.0, 1.0)
 PO_w1 = open("w1.pickle", "wb")
 pickle.dump(w1, PO_w1)
 PO_w1.close()
@@ -87,45 +85,35 @@ pickle.dump(w4, PO_w4)
 PO_w4.close()
 PO_b4 = open("b4.pickle", "wb")
 pickle.dump(b4, PO_b4)
-PO_b4.close()
-'''
+PO_b4.close()'''
+
 '''train(1, inp[1], out[1])'''
 
-'''def activation(output):
-    neg = np.zeros(shape=(len(output)))
-    for i in range(len(output)):
-        if output [i] < 0:
-            neg[i] = -1
-            output[i] = output[i] * -1
-        elif output[i] >= 0:
-            neg[i] = 1
-        output[i] = output[i]/(np.sum(output))
-    for i in range(len(output)):
-        output[i] = output[i] * neg[i]
-    return output
-
-def activation(output):
-    neg = np.zeros(shape=(len(output)))
-    for i in range(len(output)):
-        if output [i] < 0:
-            neg[i] = -1
-            output[i] = output[i] * -1
-        elif output[i] >= 0:
-            neg[i] = 1
-        output[i] = output[i]/(np.sum(output))
-    for i in range(len(output)):
-        output[i] = output[i] * neg[i]
-    return output'''
-
 start = timer()
-train(4, inp[1], out[1])
-print(nn(inp[1], out[1]))
+train(1)
+print(loss_function)
 for i in range(len(inp.keys())):
     print(i, output(inp[i]))
     print(i, out[i])
 end = timer()
 print(end-start)
 
-#8.255567082031298
-#0.1599504276223469
-#todo write code to invert all outputs. 
+
+'''
+for i in range(len(inp.keys())):
+    if out[i] == [0.8]:
+        out[i] = [-0.8]
+    elif out[i] == [0.5]:
+        out[i] = [-0.5]
+    elif out[i] == [-0.5]:
+        out[i] = [0.5]
+    elif out[i] == [-0.8]:
+        out[i] = [0.8]
+print(out)
+pickle_out2 = open('outputs.pickle', 'wb')
+pickle.dump(out, pickle_out2)
+pickle_out2.close()
+pickle_out = open('inputs.pickle', 'wb')
+pickle.dump(inp, pickle_out)
+pickle_out.close()'''
+
