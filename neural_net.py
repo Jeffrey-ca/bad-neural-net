@@ -72,11 +72,19 @@ def output(X):
 
 
 def train(num_train):
-    for i in range(num_train):
+    for _ in range(num_train):
         train_function(w1, b1)
+        save_weights_biases()
+        print('w1 finished')
         train_function(w2, b2)
+        save_weights_biases()
+        print('w2 finished')
         train_function(w3, b3)
+        save_weights_biases()
+        print('w3 finished')
         train_function(w4, b4)
+        save_weights_biases()
+        print('w4 finished')
 
 
 def train_function(weight, bias):
@@ -90,7 +98,6 @@ def train_function(weight, bias):
                 weight[i][b] = hold_weight
             else:
                 print(loss_test)
-        save_weights_biases()
         for d in range(0, len(bias)):
             hold_loss_bias = loss_function()
             hold_bias = bias[d]
@@ -100,7 +107,6 @@ def train_function(weight, bias):
                 bias[d] = hold_bias
             else:
                 print(loss_test_bias)
-        save_weights_biases()
 
 
 def save_weights_biases():
@@ -128,4 +134,3 @@ def save_weights_biases():
     PO_b4 = open("b4.pickle", "wb")
     pickle.dump(b4, PO_b4)
     PO_b4.close()
-

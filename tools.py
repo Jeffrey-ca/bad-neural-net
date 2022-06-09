@@ -1,6 +1,5 @@
 from neural_net import *
 from trading_def import *
-
 # this trains neural net
 '''start = timer()
 for b in range(1):
@@ -19,14 +18,19 @@ print(end-start)'''
 
 # reset information
 '''X = np.zeros(shape=40)
-webhook = [0, 0, 0, 0, 0]
+web_data = [0, 0, 0, 0, 0]
 pickle_out5 = open('webhook.pickle', 'wb')
-pickle.dump(webhook, pickle_out5)
+pickle.dump(web_data, pickle_out5)
 pickle_out5.close()
 pickle_out6 = open('X.pickle', 'wb')
 pickle.dump(X, pickle_out6)
 pickle_out6.close()
-inp = {}
+print(X)
+print(web_data)
+
+'''
+
+'''inp = {}
 out = {}
 pickle_out = open('inputs.pickle', 'wb')
 pickle.dump(inp, pickle_out)
@@ -87,10 +91,10 @@ PO_b4 = open("b4.pickle", "wb")
 pickle.dump(b4, PO_b4)
 PO_b4.close()'''
 
-'''train(1, inp[1], out[1])'''
 
 start = timer()
-train(1)
+while loss_function() > .1:
+    train(1)
 print(loss_function)
 for i in range(len(inp.keys())):
     print(i, output(inp[i]))
@@ -99,21 +103,9 @@ end = timer()
 print(end-start)
 
 
-'''
-for i in range(len(inp.keys())):
-    if out[i] == [0.8]:
-        out[i] = [-0.8]
-    elif out[i] == [0.5]:
-        out[i] = [-0.5]
-    elif out[i] == [-0.5]:
-        out[i] = [0.5]
-    elif out[i] == [-0.8]:
-        out[i] = [0.8]
+'''pickle_in6 = open('X.pickle', 'rb')
+X = pickle.load(pickle_in6)
 print(out)
-pickle_out2 = open('outputs.pickle', 'wb')
-pickle.dump(out, pickle_out2)
-pickle_out2.close()
-pickle_out = open('inputs.pickle', 'wb')
-pickle.dump(inp, pickle_out)
-pickle_out.close()'''
-
+print(len(out.keys()))
+print(len(inp.keys()))
+print(output(X))'''
