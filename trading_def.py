@@ -171,12 +171,12 @@ def array(request_json, X):
 
 # Saves inputs and outputs of neural net
 def save_in_out(array2):
-    inp[len(inp.keys())] = array2
-    pickle_out = open('inputs.pickle', 'wb')
-    pickle.dump(inp, pickle_out)
-    pickle_out.close()
     out_default = [0]
     out[len(inp.keys())] = out_default
     pickle_out2 = open('outputs.pickle', 'wb')
     pickle.dump(out, pickle_out2)
     pickle_out2.close()
+    inp[len(inp.keys())] = array2
+    pickle_out = open('inputs.pickle', 'wb')
+    pickle.dump(inp, pickle_out)
+    pickle_out.close()
