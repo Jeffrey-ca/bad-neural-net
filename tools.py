@@ -28,9 +28,9 @@ pickle_out6.close()
 print(X)
 print(web_data)
 
+print(loss_function())'''
 '''
-
-'''inp = {}
+inp = {}
 out = {}
 pickle_out = open('inputs.pickle', 'wb')
 pickle.dump(inp, pickle_out)
@@ -91,21 +91,17 @@ PO_b4 = open("b4.pickle", "wb")
 pickle.dump(b4, PO_b4)
 PO_b4.close()'''
 
-
+times_trained = 0
 start = timer()
-while loss_function() > .1:
+while loss_function() > .5:
     train(1)
-print(loss_function)
-for i in range(len(inp.keys())):
-    print(i, output(inp[i]))
-    print(i, out[i])
+    times_trained += 1
+print(loss_function())
+print(times_trained)
 end = timer()
 print(end-start)
-
-
-'''pickle_in6 = open('X.pickle', 'rb')
-X = pickle.load(pickle_in6)
-print(out)
+'''
+print(loss_function())
 print(len(out.keys()))
-print(len(inp.keys()))
-print(output(X))'''
+'''
+
