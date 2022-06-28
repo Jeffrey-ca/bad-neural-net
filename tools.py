@@ -93,7 +93,7 @@ PO_b4.close()'''
 
 times_trained = 0
 start = timer()
-while loss_function() > .5:
+while loss_function() > .9:
     train(1)
     times_trained += 1
 print(loss_function())
